@@ -3,15 +3,44 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>horreya-frontend</title>
+    <title>الحرية للسياحة</title>
   </head>
-  <body>
+  <body style="overflow: hidden">
     <noscript>
-      <strong>We're sorry but horreya-frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but Elhorreya Travel doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <div class="loader-global">
+      <div class="wrapper-loader">
+        <div class="loader">
+          <span class="spinner-border"></span>
+        </div>
+        <h2 class="site-name">الحرية للسياحة</h2>
+      </div>
+    </div>
+    <script src="<%= BASE_URL %>js/jquery-1.12.1.min.js"></script>
+
+    <script>
+      function initMapCompany() {
+          var my_map_modal = document.getElementById('map_company'),
+              elMap = document.getElementById('location_map_company'),
+              latitude = window.parseFloat(my_map_modal.getAttribute('data-lat')),
+              longitude = window.parseFloat(my_map_modal.getAttribute('data-long'));
+
+          var uluru = {lat: latitude, lng: longitude};
+          var map = new google.maps.Map(elMap, {
+              zoom: 16,
+              center: uluru
+          });
+          var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+          });
+      }
+    </script>
   </body>
 </html>

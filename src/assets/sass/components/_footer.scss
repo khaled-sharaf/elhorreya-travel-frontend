@@ -1,0 +1,208 @@
+$colorTextFooter: #DDD;
+
+#c_footer {
+	.wrapper-footer {
+		background-color: $colorFooter;
+		padding-top: 50px;
+		position: relative;
+    @include maxSmall {
+      margin-bottom: 60px;
+    }
+		.box {
+      position: relative;
+      z-index: 111;
+			.title-footer {
+				color: #EEE;
+				font-weight: bold;
+				margin-bottom: 30px;
+			}
+			.content {
+				.list {
+					padding: 0;
+					margin: 0;
+					list-style: none;
+					li {
+						margin-bottom: 5px;
+						a {
+							color: $colorTextFooter;
+							font-size: 14px;
+						}
+					}
+				}
+			}
+		}
+    /* ./global box */
+    // =========================================================================================
+
+    .col-desc {
+      .content-desc {
+        p {
+          color: $colorTextFooter;
+          font-size: 17px;
+        }
+      }
+    }
+    /* ./desc */
+    // =========================================================================================
+
+    .col-links {
+      .box {
+        padding-right: 30px;
+      }
+    }
+    /* ./links */
+    // =========================================================================================
+
+    .col-our-location {
+      .box {
+        padding-right: 20px;
+      }
+      .list {
+        li {
+          display: flex;
+          .icon {
+            width: 30px;
+            i {
+              color: $mainColor;
+            }
+          }
+          .text {
+            flex-basis: 100%;
+            color: $colorTextFooter;
+          }
+        }
+      }
+    }
+    /* ./our-location */
+    // =========================================================================================
+
+
+    .col-contact-us {
+      .box {
+        text-align: left;
+      }
+      .social {
+        .icons {
+          margin-bottom: 20px;
+          a {
+            color: $colorTextFooter;
+            font-size: 24px;
+            margin: 0 7px;
+            @include trans('0.2s');
+            &:hover, &:active, &:focus {
+              color: $mainColor;
+            }
+          }
+        }
+      }
+    }
+    /* ./contact-us */
+    // =========================================================================================
+
+		.copyright {
+			padding: {
+				top: 40px;
+				bottom: 20px;
+			};
+			color: $colorTextFooter;
+			font-size: 13px;
+      position: relative;
+      z-index: 111;
+			.site-name {
+				color: $mainColor;
+			}
+		}
+    /* ./copyright */
+    // =========================================================================================
+
+		.logo-footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+      z-index: 100;
+			.image {
+				img {
+					max-width: 100%;
+					height: 200px;
+				}
+			}
+		}
+    /* ./logo-footer */
+    // =========================================================================================
+
+    @include maxMedium {
+      .col-desc {
+        order: 1;
+      }
+      .col-links {
+        order: 3;
+        .box {
+          padding-right: 0;
+        }
+      }
+      .col-our-location {
+        order: 2;
+        .box {
+          margin-bottom: 60px;
+          padding-right: 80px;
+        }
+      }
+      .col-contact-us {
+        order: 4;
+        .box {
+          padding-right: 80px;
+          text-align: right;
+        }
+      }
+
+      .col-copyright {
+        order: 5;
+      }
+    }
+    /* ./max medium */
+    // =========================================================================================
+
+    @include maxSmall {
+      .col-our-location {
+        .box {
+          padding-right: 0;
+        }
+      }
+      .col-contact-us {
+        .box {
+          padding-right: 0;
+        }
+      }
+    }
+    /* ./max small */
+    // =========================================================================================
+
+    @include maxMobile {
+      .box {
+        text-align: center !important;
+        margin-bottom: 40px !important;
+        padding: {
+          right: 30px !important;
+          left: 30px !important;
+        }
+        .title-footer {
+          margin-bottom: 20px;
+        }
+      }
+      .col-our-location {
+        .list {
+          li {
+            justify-content: center;
+            .text {
+              flex-basis: auto;
+            }
+          }
+        }
+      }
+
+    }
+    /* ./max mobile */
+    // =========================================================================================
+		
+	}
+}

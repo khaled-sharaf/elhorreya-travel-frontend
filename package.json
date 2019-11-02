@@ -19,10 +19,17 @@
     "overlayscrollbars": "^1.10.0",
     "overlayscrollbars-vue": "^0.2.0",
     "sweetalert2": "^8.18.3",
+    "v-money": "^0.8.1",
     "vform": "^1.0.1",
     "vue": "^2.6.10",
     "vue-flux": "^5.1.9",
+    "vue-owl-carousel2": "^2.0.7",
+    "vue-range-slider": "^0.6.0",
     "vue-router": "^3.0.3",
+    "vue-select": "^3.2.0",
+    "vue-social-sharing": "^2.4.6",
+    "vue2-datepicker": "^2.12.0",
+    "vuejs-paginate": "^2.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

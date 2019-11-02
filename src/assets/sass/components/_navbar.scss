@@ -1,0 +1,114 @@
+#c_navbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	user-select: none;
+
+	.logo {
+    padding-left: 0;
+    img {
+      max-width: 95%;
+      height: 130%;
+    }
+    position: relative;
+    top: 5px;
+
+		@media (max-width: 870px) and (min-width: 767px) {
+			display: none;
+		}
+		&.hide-logo {
+			@include maxSmall {
+				display: none;
+			}
+		}
+	}
+	.btn-back-mobile {
+		position: absolute;
+		left: 15px;
+		top: 50%;
+		height: 30px;
+		width: 30px;
+		line-height: 30px;
+		margin-top: -15px;
+		font-size: 30px;
+		color: #FFF;
+		text-align: center;
+		cursor: pointer;
+		@include minSmall {
+			display: none;
+		}
+	}
+
+	.mf-navbar {
+		background-color: transparent;
+		height: 90px;
+
+		> .box-hoverable {
+			background-color: transparent;
+			border-width: 2px;
+		}
+
+    .content-nav {
+      .list-horizontal > li {
+        text-align: center;
+      }
+    }
+
+		.header-sidebar {
+			padding: 20px 15px;
+			border-bottom: 1px solid #CCC;
+			margin-bottom: 10px;
+			color: #444;
+			font-weight: 700;
+			i {
+				color: $mainColorDark;
+				font-size: 19px;
+				margin-left: 5px;
+				position: relative;
+				top: 1px;
+			}
+		}
+
+		.contact-us-sidebar {
+			@include minSmall {
+				display: none;
+			}
+		}
+		.list.list-vertical.toggle-sidebar {
+			padding-bottom: 70px;
+			.contact-us-sidebar {
+				position: fixed;
+				bottom: 0;
+				width: 260px;
+				height: 50px;
+				.box-content {
+					height: 100%;
+					background-color: $mainColor;
+					padding: {
+						left: 15px;
+						right: 15px;
+					};
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.label {
+						font-size: 15px;
+						font-weight: bold;
+					}
+
+					.icons {
+						a {
+							font-size: 18px;
+							margin: 0 7px;
+							@include trans('0.2s');
+							&:hover, &:active, &:focus {
+								color: $mainColorDark;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

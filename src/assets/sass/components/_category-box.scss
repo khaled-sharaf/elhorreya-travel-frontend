@@ -1,0 +1,28 @@
+
+.category-box {
+	.wrapper-category-box {
+		border-radius: 12px;
+		.wrapper-link {
+			border-radius: 10px;
+			position: relative;
+			border-radius: 12px;
+			&:hover {
+				.overlay-box {
+					background-color: rgba(black, 0.2);
+				}
+			}
+			.overlay-box {
+				border-radius: 12px;
+				@include trans('0.4s');
+				@include overlay(absolute, 100, rgba(black, 0.65), #FFF);
+			}
+			.title {
+				position: absolute;
+				bottom: 20px;
+				right: 20px;
+				font-weight: bold;
+				font-size: 1.6rem;
+			}
+		}
+	}
+}

@@ -30,13 +30,13 @@
 <template>
   <div class="page404">
     <div id="page404">
-      <h1 class="title-page404">PAGE NOT FOUND</h1>
+      <h1 class="title-page404">الصفحة غير متاحة</h1>
 
       <img class="image-page404" src="http://shorelineseafoodinc.com/assets/images/404.png" alt="404">
 
       <div class="buttons">
-        <b-button class="btn" size="sm" variant="info" :to="{name: 'home'}">Go To Home <i class="fas fa-home"></i></b-button>
-        <b-button class="btn" size="sm" variant="light" @click="backPage()">Back <i class="fas fa-undo"></i></b-button>
+        <b-button class="btn" size="sm" variant="info" :to="{name: 'home'}">الرئيسية <i class="fas fa-home"></i></b-button>
+        <b-button class="btn" size="sm" variant="light" @click="backPage()">للخلف <i class="fas fa-undo"></i></b-button>
       </div>
 
     </div>

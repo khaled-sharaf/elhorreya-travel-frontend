@@ -1,0 +1,51 @@
+
+#who_we {
+	.visitor {
+		padding-left: 40px;
+		text-align: center;
+		@include maxMobile {
+			margin-top: 50px;
+		}
+		.title {
+			font-weight: bold;
+		}
+		.count-visitor {
+			margin-top: 30px;
+			direction: ltr;
+			.number {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 4px;
+				text-align: center;
+				font-size: 18px;
+				font-weight: bold;
+				background-color: #FFF;
+				color: $mainColorDark;
+				@extend .shadow4;
+				margin: 0 4px;
+			}
+		}
+	}
+}
+
+.who-we-content {
+	padding-top: 30px;
+	padding-bottom: 60px;
+	.section-title-center {
+		text-align: right;
+		.text {
+			font-size: 1.4rem;
+		}
+	}
+	.content-text {
+		color: $mainColorDark;
+		padding: 10px;
+		margin-bottom: 40px;
+		line-height: 2;
+		@include minMobile {
+			padding: 20px !important;
+		}
+	}
+}

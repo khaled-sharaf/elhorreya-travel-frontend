@@ -1,0 +1,171 @@
+#travel {
+	.header-left {
+		.discount-travel {
+			display: flex;
+			align-items: center;
+			padding: 7px 10px;
+			font-size: 18px;
+			background-color: $mainColor;
+			border-radius: 2px;
+			border-top-right-radius: 20px;
+
+			.number {
+				display: block;
+				margin: 0 10px;
+				text-align: center;
+				font-weight: bold;
+				font-size: 22px;
+				margin-left: 0 !important;
+			}
+
+			@include minMedium {
+				padding: 12px;
+				font-size: 24px;
+				border-top-right-radius: 25px;
+				.number {
+					font-size: 28px;
+				}
+			}
+		}
+	}
+	// =================================================================
+
+
+	.offers-tables {
+		.wrapper-tabel-offers {
+			margin-top: 40px;
+			.offer-box {
+				margin-bottom: 40px;
+				.offer-title {
+					.text {
+						font-size: 1.1rem;
+						font-weight: bold;
+						margin-bottom: 10px;
+						color: $mainColorDark;
+					}
+				}
+				.t-row {
+					border: 2px solid $mainColor;
+					display: flex;
+					flex-wrap: wrap;
+					@include minLarge {
+						flex-wrap: nowrap;
+						.t-col {
+							&.c-price {
+								min-width: 180px;
+							}
+						}
+					}
+
+					.t-col {
+						flex-basis: calc(100% / 8);
+						text-align: center;
+						border-left: 1px solid #f6c78a;
+						@include maxLarge {
+							flex-basis: calc(100% / 6);
+							.value {
+								border-width: 2px !important;
+							}
+						}
+						@include maxMedium {
+							flex-basis: calc(100% / 4);
+						}
+						@include maxSmall {
+							flex-basis: calc(100% / 3);
+						}
+						@include maxMobile {
+							flex-basis: calc(100% / 2);
+						}
+						@media (max-width: 400px) {
+							flex-basis: 100%;
+						}
+						.label {
+							font-weight: bold;
+							color: $mainColorDark;
+							border-bottom: 1px solid #f6c78a;
+							height: 40px;
+							max-height: 40px;
+							font-size: 13px;
+							line-height: 40px;
+							padding: 3px;
+							.icon {
+								color: $mainColor;
+								display: inline-block;
+								margin-left: 3px;
+							}
+						}
+						.value {
+							color: $mainColorDark;
+							font-size: 13px;
+							height: 60px;
+							max-height: 60px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							border-bottom: 1px solid #f6c78a;
+							padding: 3px;
+
+
+							.time-period, .price {
+								display: flex;
+								justify-content: center;
+								align-items: center;
+							}
+
+							.time-period {
+								.separator {
+									margin: 0 5px;
+									font-weight: bold;
+									color: $mainColor;
+									font-size: 14px;
+								}
+							}
+							.price {
+								> div {
+									margin: 0 5px;
+									.price-value {
+										margin-top: 5px;
+										font-weight: bold;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.desc-offer {
+					margin-top: 5px;
+					color: $mainColorDark;
+					font-size: 1.1rem;
+				}
+			}
+		}
+	}
+	// =================================================================
+
+
+	.travels-others {
+		.time-period {
+			display: flex;
+			align-items: center;
+			margin-top: 5px;
+			.icon {
+				color: $mainColor;
+				font-size: 16px;
+				margin-left: 8px;
+			}
+			.value {
+				color: #f6c78a;
+				font-weight: normal;
+				.separator {
+					color: $mainColor;
+					display: inline-block;
+					font-weight: bold;
+					margin: 0 3px;
+				}
+			}
+
+		}
+	}
+	// =================================================================
+}

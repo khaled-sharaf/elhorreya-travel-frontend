@@ -1,0 +1,58 @@
+
+#hotels {
+	.hotels-header {
+		&:after {
+      // background-color: rgba(black, 0.4) !important;
+    }
+		.header-content {
+			.header-title {
+			}
+		}
+  }
+}
+
+
+.hotel.box-flat {
+	height: 300px;
+	margin-bottom: 30px;
+	.wrapper-link {
+		justify-content: flex-start;
+		overflow: hidden;
+		&:hover {
+			.discount {
+				transform: translateY(-100%);
+			} 
+			.content {
+				transform: translateX(100%);
+			}
+		}
+		.discount {
+			@include trans('0.2s');
+		}
+		.content {
+			@include trans('0.3s');
+			
+			.name {
+
+			}
+			.address {
+				font-weight: normal;
+			}
+			.rating {
+				margin-top: 5px;
+				.number {
+					display: inline-block;
+					font-weight: normal;
+					background-color: $mainColor;
+					font-size: 12px;
+					border-radius: 2px;
+					padding: 0 3px;
+					line-height: 1.4;
+					margin-left: 6px;
+					position: relative;
+					top: -2px;
+				}
+			}
+		}
+	}
+}

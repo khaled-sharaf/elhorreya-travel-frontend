@@ -1,0 +1,173 @@
+
+.blog-content {
+	.blog {
+		padding-bottom: 60px;
+		.title {
+			.text {
+				color: $mainColorDark;
+				font-size: 1.3rem;
+				font-weight: bold;
+				margin: 20px 0;
+				@include maxMobile {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.created-at {
+			display: flex;
+			align-items: center;
+			.icon {
+				color: $mainColor;
+				width: 25px;
+				@include maxMobile {
+					font-size: 15px;
+				}
+			}
+
+			.show-date {
+				color: $colorFooter;
+				font-size: 14px;
+				@include maxMobile {
+					font-size: 13px;
+				}
+				.time {
+
+				}
+				.separator {
+					color: $mainColor;
+					display: inline-block;
+					margin: 0 6px;
+				}
+				.date {
+
+				}
+			}
+		}
+
+		.paragraph {
+			color: $mainColorDark;
+			line-height: 2;
+			word-break: break-word;
+			padding: {
+				top: 10px;
+				bottom: 10px;
+			};
+
+			@include minMobile {
+				padding: {
+					left: 20px;
+					right: 20px;
+				};
+			}
+		}
+
+		.carousel-container {
+			display: flex;
+			justify-content: center;
+			.my-carousel-images {
+				padding: 40px 0;
+				width: 80%;
+				max-width: 1000px;
+				@include maxMobile {
+					width: 95%;
+				}
+				.image-item-carousel {
+					height: 500px;
+					@include maxSmall {
+						height: 350px;
+					}
+					@include maxMobile {
+						height: 300px;
+					}
+					.image {
+						height: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						margin: 0 5px;
+						img {
+							max-width: 100%;
+							max-height: 100%;
+							height: auto;
+							width: auto;
+							border-radius: 10px;
+							border: 2px solid #DDD;
+						}
+					}
+				}
+				.owl-nav {
+					position: absolute;
+					top: 50%;
+          left: 0;
+          width: 100%;
+          height: 40px;
+          margin-top: -20px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					&.disabled {
+						display: none !important;
+					}
+					> div {
+						background-color: transparent;
+						position: relative;
+						font-size: 25px;
+						margin: 0;
+						padding: 0;
+						height: 100%;
+						> span {
+							display: block;
+							width: 40px;
+              height: 100%;
+              border-radius: 50%;
+              text-align: center;
+              line-height: 40px;
+							background-color: rgba(white, 0.6);
+							@extend .shadow5;
+							color: $mainColor;
+							@include trans('0.2s');
+							&:hover {
+								color: $mainColorDark;
+							}
+						}
+					}
+				  .owl-next {
+            left: 60px;
+          }
+          .owl-prev {
+            right: 60px;
+          }
+
+					@include maxSmall {
+            height: 35px;
+            margin-top: -17.5px;
+            > div {
+              font-size: 20px;
+              > span {
+                width: 35px;
+                line-height: 35px;
+              }
+            }
+            .owl-next {
+              left: 40px;
+            }
+            .owl-prev {
+              right: 40px;
+            }
+          }
+
+					@include maxMobile {
+						position: relative;
+						display: block;
+						margin-top: -10px;
+						> div {
+							position: static;
+							margin: 15px 40px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

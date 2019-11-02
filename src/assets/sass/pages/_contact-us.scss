@@ -1,0 +1,70 @@
+
+.contact-us-content {
+	padding: 60px 0;
+	.section-title-center {
+		text-align: right;
+		.text {
+			font-size: 1.4rem;
+		}
+	}
+	.content {
+		margin-bottom: 50px;
+	}
+
+	.contact {
+		.row-contact {
+			display: flex;
+			align-items: flex-start;
+			margin-bottom: 5px;
+			max-width: 350px;
+			@include maxSmall {
+				margin-bottom: 5px;
+				display: block;
+				.side {
+					margin-bottom: 5px;
+					min-width: auto !important;
+				}
+			}
+			.side {
+				min-width: 350px;
+				margin-left: 15px;
+				.icon {
+					display: inline-block;
+					width: 25px;
+					color: $mainColor;
+					font-size: 16px;
+				}
+				.text {
+				}
+			}
+		}
+	}
+
+	.map {
+		.map-company {
+			#location_map_company {
+				border: 1px solid #CCC;
+				background-color: #FFF;
+				@extend .shadow5;
+				border-radius: 4px;
+				height: 500px;
+				width: 90%;
+				margin: auto;
+				@include maxMedium {
+					width: 100%;
+					height: 400px;
+				}
+				@include maxMobile {
+					height: 300px;
+				}
+			}
+		}
+	}
+
+
+	.contact-form {
+		.message-success {
+			margin-top: 20px;
+		}
+	}
+}

@@ -1,0 +1,43 @@
+$lang: rtl;
+
+// required files (global)
+@import './helpers/fonts';
+
+@import './helpers/variables';
+@import './helpers/mixins';
+@import './helpers/helper-classes';
+@import './helpers/extend-classes';
+
+@import './components/plugins/buttons';
+@import './components/plugins/navbar';
+@import './components/plugins/sidenav';
+@import './components/plugins/style-sidenav';
+
+
+@import './global';
+
+
+// components
+@import './components/navbar';
+@import './components/navbar-bottom';
+@import './components/search-box';
+@import './components/category-box';
+@import './components/travels-boxs-page';
+@import './components/travel-box';
+
+@import './components/footer';
+
+
+// pages
+@import './pages/home';
+@import './pages/hotels';
+@import './pages/hotel';
+@import './pages/categories';
+@import './pages/travel';
+@import './pages/travels-images-categories';
+@import './pages/images-category';
+@import './pages/blogs';
+@import './pages/blog';
+@import './pages/who-we';
+@import './pages/contact-us';
+@import './pages/unsubscribe';

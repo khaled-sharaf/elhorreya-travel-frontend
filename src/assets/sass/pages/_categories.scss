@@ -1,0 +1,32 @@
+.categories-content {
+	@include minMedium {
+		width: 80%;
+		margin: {
+			left: auto;
+			right: auto;
+		}
+	}
+	@include maxSmall {
+		padding-top: 50px;
+		.title-page {
+			.text {
+				font-size: 1.4rem;
+			}
+		}
+	}
+	margin-bottom: 60px;
+
+	.wrapper-category-box {
+		margin-bottom: 40px;
+		.wrapper-link {
+			height: 350px;
+			background-size: cover !important;
+		}
+	}
+
+	.description {
+		.desc-content {
+			line-height: 1.8;
+		}
+	}
+}

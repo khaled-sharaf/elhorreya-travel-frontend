@@ -1,0 +1,122 @@
+#c_search_box {
+	.search-box-wrapper {
+		@extend .shadow5;
+		padding: 20px;
+		border-radius: 10px;
+		transform: translateY(-35%);
+		position: relative;
+		z-index: 600;
+		background-color: #FFF;
+		color: $mainColorDark;
+		user-select: none;
+		@include maxSmall {
+			transform: translateY(-10%);
+		}
+		@include minMedium {
+			margin: 0 10%;
+		}
+		@include minLarge {
+			margin: 0 15%;
+		}
+		.header {
+			margin-bottom: 30px;
+			display: flex;
+			justify-content: space-between;
+			.title {
+				font-size: 20px;
+				font-weight: bold;
+			}
+		}
+		.search-form {
+			.separator {
+				@include minSmall {
+					margin-bottom: 10px;
+				}
+			}
+			.col-go-and-back {
+				.wrapper-go-and-back {
+					position: relative;
+					top: 7px;
+				}
+				@include maxSmall {
+					order: -1;
+				}
+			}
+			.form-group {
+				position: relative;
+				.custom-select:disabled {
+					background-color: transparent;
+					opacity: 0.4;
+				}
+				.title-input {
+					display: block;
+					font-size: 11px;
+					position: absolute;
+					top: -8px;
+					right: 10px;
+					background-color: #FFF;
+					padding: 0 3px;
+					z-index: 999;
+				}
+				.wrapper-go-and-back {
+					display: flex;
+					justify-content: space-around;
+				}
+				.custom-control-label {
+					font-size: 13px;
+				}
+
+				// .count-people {
+				// 	display: flex;
+				// 	padding: 0;
+				// 	> input {
+				// 		display: block;
+				// 		flex-basis: 100%;
+				// 		text-align: center;
+				// 		outline: 0;
+				// 		border: 0;
+				// 		border-radius: 5px;
+				// 		&:first-child {
+				// 			border-left: 1px solid;
+				// 			border-top-left-radius: 0;
+				// 			border-bottom-left-radius: 0;
+				// 		}
+				// 	}
+				// }
+
+				.btn-submit-search {
+					background-color: $mainColor;
+					span, i, i::before {
+						color: #FFF !important;
+					}
+					i {
+						font-size: 14px;
+					}
+					.icon-loading {
+						font-size: 18px;
+					}
+				}
+			}
+		}
+	}
+}
+
+// overlay search mobile
+.overlay-search-mobile {
+	@include overlay(fixed, 99999999, rgba(black, 0.8));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: scale(0);
+	transform-origin: center center;
+	@include trans('0.2s');
+	&.show-search {
+		transform: scale(1);
+	}
+	.box-search {
+		.search-box-wrapper {
+			transform: translateY(0) !important;
+		}
+	}
+}
+/***********************************************************************************************/

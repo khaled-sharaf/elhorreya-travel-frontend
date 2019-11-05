@@ -293,7 +293,10 @@ export default {
       } else {
         this.disabledAddress = false
       }
+    },
 
+    'form.hotel_address'(newVal) {
+        this.form.filter_hotel = ''
     }
   },
 

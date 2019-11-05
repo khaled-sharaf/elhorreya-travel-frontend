@@ -349,9 +349,10 @@ body {
 				right: 15px;
 			};
 			a {
+				display: inline-block;
 				background-color: $mainColor;
 				color: $mainColorDark;
-				padding: 5px;
+				padding: 6px 10px;
 				border-radius: 3px;
 				font-size: 1.2rem;
 			}

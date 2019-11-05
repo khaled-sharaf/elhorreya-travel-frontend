@@ -154,14 +154,37 @@
         <b-container>
           <div class="informations hotel-info">
               <div class="side-title">
-                <h3 class="text">معلومات عن فندق
+                <h3 class="text">
+                  معلومات عن فندق
                   <router-link :to="{name: 'hotel', params: {id: travel.hotel.id, hotel: travel.hotel}}">
                     {{ travel.hotel.name }}
                   </router-link>
+                  فى
+                  {{ travel.hotel.address }}
                 </h3>
               </div>
               <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
                 <span v-html="travel.hotel.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+              </p>
+          </div> <!-- informations -->
+
+
+          <!-- ================================================================================ -->
+
+
+          <div class="informations hotel-info" v-if="travel.hotel_2 !== null">
+              <div class="side-title">
+                <h3 class="text">
+                  معلومات عن فندق
+                  <router-link :to="{name: 'hotel', params: {id: travel.hotel_2.id, hotel: travel.hotel_2}}">
+                    {{ travel.hotel_2.name }}
+                  </router-link>
+                  فى
+                  {{ travel.hotel_2.address }}
+                </h3>
+              </div>
+              <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
+                <span v-html="travel.hotel_2.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
               </p>
           </div> <!-- informations -->
 

@@ -173,6 +173,7 @@
 					padding: 0;
 					margin: 0;
 					height: 100%;
+					text-align: center;
 					.item-pagiante {
 						display: inline-flex;
 						height: 100%;
@@ -319,6 +320,7 @@
 		padding-bottom: 50px;
 		.wrapper-table-rooms {
 			margin-top: 30px;
+			text-align: center;
 			.table-bordered th, .table-bordered td {
 				border-color: $mainColor;
 			}
@@ -337,16 +339,26 @@
 				> tr {
 					> td {
 						color: $mainColorDark;
+						vertical-align: middle;
 					}
 				}
 			}	
 
 			.offer-price {
 				.price, .days {
+					display: inline-block;
 					background-color: $mainColor;
-					padding: 0 8px;
+					padding: 2px 6px;
 					border-radius: 3px;
-					font-size: 0.85rem;
+					font-size: 0.75rem;
+					white-space: nowrap;
+					margin: {
+						top: 3px;
+						bottom: 3px;
+					}
+					@media (max-width: 460px) {
+						margin: 3px 0 !important;
+					}
 				}
 				.price {
 					margin-left: 5px;

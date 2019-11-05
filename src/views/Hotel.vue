@@ -171,10 +171,10 @@
                 </template>
 
                 <template v-slot:cell(offer_price)="data">
-                  <div class="text-center" v-if="data.value == null || data.value == ''">
+                  <div v-if="data.value == null || data.value == ''">
                     <b class="text-danger">---</b>
                   </div>
-                  <div v-else class="offer-price text-center">
+                  <div v-else class="offer-price">
                     <b class="price">{{ data.value }} جنية</b>
                     فى
                     <b class="days">{{ handelNightsPeriod(data.item.offer_days) }}</b>

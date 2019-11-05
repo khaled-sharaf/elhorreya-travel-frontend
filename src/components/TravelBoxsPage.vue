@@ -142,6 +142,9 @@
                       <option value=""></option>
                       <option v-for="hotel in hotelsName" :key="hotel.id" :value="hotel.id" v-text="hotel.name"></option>
                     </select>
+                    <small v-if="!hotelsName.length">
+                      اختر المدينة أولا ثم اختر الفندق
+                    </small>
                   </div>
                 </div>
               </div>
@@ -508,6 +511,10 @@ export default {
           this.showHotels = true
           this.hotelsInSearch = []
           this.city = ''
+
+          if (newForm.filter_hotel === '') {
+            this.hotel = ''
+          }
 
           if (newForm.hotel_address != '') {
             this.city = newForm.hotel_address

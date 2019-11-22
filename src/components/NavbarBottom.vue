@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="nav-item">
+        <!-- <div class="nav-item">
           <div class="wrapper-nav-item" @click="showSearch()">
             <div class="icon">
               <i class="fas fa-search"></i>
@@ -23,7 +23,7 @@
               بحث
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="nav-item">
           <div class="wrapper-nav-item" @click="goToHome()">

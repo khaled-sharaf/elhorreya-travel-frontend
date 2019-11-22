@@ -42,7 +42,7 @@
                 <li :class="{active: $route.name == 'blogs'}"><router-link :to="{name: 'blogs'}"> المدونات </router-link></li>
                 <li :class="{active: $route.name == 'who-we'}"><router-link :to="{name: 'who-we'}"> من نحن </router-link></li>
                 <li :class="{active: $route.name == 'contact-us'}"><router-link :to="{name: 'contact-us'}"> اتصل بنا </router-link></li>
-                <li class="d-none d-md-block" v-if="$route.name !== 'categories' && $route.name !== 'home' && $route.name !== 'travels'"><a @click.prevent="showSearch()" href="javascript.void()"> <i class="fas fa-search"></i> </a></li>
+                <!-- <li class="d-none d-md-block" v-if="$route.name !== 'categories' && $route.name !== 'home' && $route.name !== 'travels'"><a @click.prevent="showSearch()" href="javascript.void()"> <i class="fas fa-search"></i> </a></li> -->
 
                 <li class="contact-us-sidebar">
                   <div class="box-content">

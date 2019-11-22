@@ -13,23 +13,24 @@
       </div>
     </flux-parallax>
 
-    <section class="box-search" v-show="$store.state.showSearchBoxPages">
+    <!-- <section class="box-search" v-show="$store.state.showSearchBoxPages">
       <b-container>
         <search-box></search-box>
       </b-container>
-    </section>
+    </section> -->
 
     <!-- content-page -->
     <section class="content-page">
 
       <!-- search-content -->
 
-      <travel-boxs-page
+      <!-- <travel-boxs-page
         id="search-content"
         v-if="$store.state.showSearchResult"
         :showLoading="$store.state.showLoading"
 
-        :changePrice="changePrice"
+        :changeToPrice="changeToPrice"
+        :changeFromPrice="changeFromPrice"
         :changeStars="changeStars"
         :changeHotel="changeHotel"
         :sorting="sorting"
@@ -37,77 +38,14 @@
         category="search"
         :paginateClick="goToPageInSearch"
         :paginateData="$store.state.searchResult"
-      ></travel-boxs-page>
+      ></travel-boxs-page> -->
 
       <!-- ./search-content -->
 
 
       <!-- home-content -->
       <div class="home-content main-content" v-if="!$store.state.showSearchResult">
-          <div class="wrapper-section wrapper-why-we">
-            <b-container>
-              <div class="section-title-center">
-                <h2 class="text">
-                  لماذا
-                  {{ $settings.site_name_ar }}
-                </h2>
-              </div>
 
-              <b-row>
-                <b-col sm="6" lg="3">
-                  <div class="box">
-                    <div class="image">
-                      <img :src="require('@/assets/images/why-we/customer-service.svg')" >
-                    </div>
-                    <h4 class="title">دعم العملاء</h4>
-                    <p class="desc">
-                      خدمة دعم العملاء 24 ساعة
-                    </p>
-                  </div>
-                </b-col>
-
-                <b-col sm="6" lg="3">
-                  <div class="box">
-                    <div class="image">
-                      <img :src="require('@/assets/images/why-we/tag.svg')" >
-                    </div>
-                    <h4 class="title">أفضل العروض</h4>
-                    <p class="desc">
-                      أفضل العروض على الرحلات والفنادق
-                    </p>
-                  </div>
-                </b-col>
-
-                <b-col sm="6" lg="3">
-                  <div class="box">
-                    <div class="image">
-                      <img :src="require('@/assets/images/why-we/security.svg')" >
-                    </div>
-                    <h4 class="title">الأمان والخصوصية</h4>
-                    <p class="desc">
-                      طريقة السداد آمنة
-                      <br>
-                      كما نضمن الخصوصية التامة للعميل
-                    </p>
-                  </div>
-                </b-col>
-
-                <b-col sm="6" lg="3">
-                  <div class="box">
-                    <div class="image">
-                      <img :src="require('@/assets/images/why-we/smile.svg')" >
-                    </div>
-                    <h4 class="title">أراء عملائنا</h4>
-                    <p class="desc">
-                      أكثر من 7000 عميل راضيين عن الحجوزات
-                    </p>
-                  </div>
-                </b-col>
-
-              </b-row>
-            </b-container>
-          </div>
-          <!-- ./wrapper-why-we -->
           <!-- ==================================================================================== -->
 
           <div class="wrapper-section wrapper-travels-offer">
@@ -120,23 +58,15 @@
 
               <div class="tabs">
                 <ul class="list-tabs">
-                  <li
-                    class="tab"
-                    :class="{active: currentTravelsOffer === 1, disbaled: !this.showCarouselTravelsLoading}"
-                    @click="toggleTabTravels(1)"
-                  >رحلات الحج والعمرة</li>
 
                   <li
+                    v-for="(tab, idx) in allDataTravelsOffer"
+                    :key="tab.id"
                     class="tab"
-                    :class="{active: currentTravelsOffer === 2, disbaled: !this.showCarouselTravelsLoading}"
-                    @click="toggleTabTravels(2)"
-                  >السياحة الداخلية</li>
-
-                  <li
-                    class="tab"
-                    :class="{active: currentTravelsOffer === 3, disbaled: !this.showCarouselTravelsLoading}"
-                    @click="toggleTabTravels(3)"
-                  >رحلات شهر العسل</li>
+                    :class="{active: currentTravelsOffer === (idx), disbaled: !showCarouselTravelsLoading}"
+                    @click="toggleTabTravels(idx)"
+                    v-text="tab.name"
+                  ></li>
 
                 </ul>
               </div>
@@ -164,7 +94,7 @@
                     :smartSpeed="500"
                     :navText="[`<span class='waves-effect'><i class='fas fa-chevron-left'></i></span>`, `<span class='waves-effect'><i class='fas fa-chevron-right'></i></span>`]"
                   >
-                    <div class="travel box-flat" v-for="travel in currentDataTravelsOffer" :key="travel.id">
+                    <div class="travel box-flat" v-for="travel in currentDataTravelsOffer.travels" :key="travel.id">
                       <router-link
                         class="wrapper-link"
                         :to="{name: 'travel', params: {id: travel.id, travel: travel}}"
@@ -238,7 +168,7 @@
                   أفضل عروض الطيران
                 </h2>
                 <div class="show-all">
-                  <router-link :to="{name: 'travels', params: {id: firstCategoryExternal.id} }" class="text">
+                  <router-link :to="{name: 'flight'}" class="text">
                     عرض الكل
                   </router-link>
                 </div>
@@ -313,13 +243,79 @@
                   </b-row>
 
                   <div class="show-more-after-section">
-                    <router-link :to="{name: 'travels', params: {id: firstCategoryExternal.id} }">للمزيد</router-link>
+                    <router-link :to="{name: 'flight'}">للمزيد</router-link>
                   </div>
                 </div>
               </div>
             </b-container>
           </div>
           <!-- ./wrapper-fly-offer -->
+          <!-- ==================================================================================== -->
+
+          <div class="wrapper-section wrapper-why-we">
+            <b-container>
+              <div class="section-title-center">
+                <h2 class="text">
+                  لماذا
+                  {{ $settings.site_name_ar }}
+                </h2>
+              </div>
+
+              <b-row>
+                <b-col sm="6" lg="3">
+                  <div class="box">
+                    <div class="image">
+                      <img :src="require('@/assets/images/why-we/customer-service.svg')" >
+                    </div>
+                    <h4 class="title">دعم العملاء</h4>
+                    <p class="desc">
+                      خدمة دعم العملاء 24 ساعة
+                    </p>
+                  </div>
+                </b-col>
+
+                <b-col sm="6" lg="3">
+                  <div class="box">
+                    <div class="image">
+                      <img :src="require('@/assets/images/why-we/tag.svg')" >
+                    </div>
+                    <h4 class="title">أفضل العروض</h4>
+                    <p class="desc">
+                      أفضل العروض على الرحلات والفنادق
+                    </p>
+                  </div>
+                </b-col>
+
+                <b-col sm="6" lg="3">
+                  <div class="box">
+                    <div class="image">
+                      <img :src="require('@/assets/images/why-we/security.svg')" >
+                    </div>
+                    <h4 class="title">الأمان والخصوصية</h4>
+                    <p class="desc">
+                      طريقة السداد آمنة
+                      <br>
+                      كما نضمن الخصوصية التامة للعميل
+                    </p>
+                  </div>
+                </b-col>
+
+                <b-col sm="6" lg="3">
+                  <div class="box">
+                    <div class="image">
+                      <img :src="require('@/assets/images/why-we/smile.svg')" >
+                    </div>
+                    <h4 class="title">أراء عملائنا</h4>
+                    <p class="desc">
+                      أكثر من 7000 عميل راضيين عن الحجوزات
+                    </p>
+                  </div>
+                </b-col>
+
+              </b-row>
+            </b-container>
+          </div>
+          <!-- ./wrapper-why-we -->
           <!-- ==================================================================================== -->
 
 
@@ -333,21 +329,32 @@
                       <h4 class="text">اشترك فى قائمتنا البريدية ليصلك كل جديد</h4>
                     </div>
                     <div class="content">
-                      <b-form @submit.prevent="subscribe()" inline>
-                        <b-form-group>
-                          <b-input size="lg" v-model="formSubscribe.email" placeholder="ادخل بريدك الإليكترونى"></b-input>
+                      <b-form @submit.prevent="subscribe()">
+                        <b-form-group class="required">
+                          <b-input class="input-email" v-model="formSubscribe.email" placeholder="ادخل بريدك الإليكترونى"></b-input>
+                          <div class="message">
+                            <div class="error" v-if="formSubscribe.errors.has('email')">
+                              {{ formSubscribe.errors.get('email') }}
+                            </div>
+                          </div>
                         </b-form-group>
-                        <b-button size="lg" :disabled="formSubscribe.busy" variant="warning" type="submit">
+
+                        <b-form-group>
+                          <b-input class="input-phone" v-model="formSubscribe.phone" placeholder="رقم الموبايل"></b-input>
+                          <div class="message">
+                            <div class="error" v-if="formSubscribe.errors.has('phone')">
+                              {{ formSubscribe.errors.get('phone') }}
+                            </div>
+                          </div>
+                        </b-form-group>
+                        <b-button :disabled="formSubscribe.busy" variant="warning" type="submit">
                           <span v-if="!formSubscribe.busy">
                             إرسال
                           </span>
                           <i v-else class="fas fa-circle-notch fa-spin icon-loading"></i>
                         </b-button>
                       </b-form>
-                      <div class="message">
-                        <div class="error" v-if="formSubscribe.errors.has('email')">
-                          {{ formSubscribe.errors.get('email') }}
-                        </div>
+                      <div class="message-alert">
                         <b-alert
                           class="message-success"
                           :show="messageDoneSubscribe != ''"
@@ -405,15 +412,15 @@
 
 <script>
 
-import SearchBox from '@/components/SearchBox'
-import TravelBoxsPage from '@/components/TravelBoxsPage'
+// import SearchBox from '@/components/SearchBox'
+// import TravelBoxsPage from '@/components/TravelBoxsPage'
 import carousel from 'vue-owl-carousel2'
 
 export default {
   name: 'home',
   components: {
-    SearchBox,
-    TravelBoxsPage,
+    // SearchBox,
+    // TravelBoxsPage,
     carousel
   },
   data () {
@@ -425,7 +432,7 @@ export default {
       showCarouselTravels: true,
       showCarouselTravelsLoading: false,
 
-      currentTravelsOffer: 0,
+      currentTravelsOffer: -1,
       currentDataTravelsOffer: [],
       allDataTravelsOffer: {},
 
@@ -435,7 +442,8 @@ export default {
       showTravelsExternalLoading: false,
 
       formSubscribe: new Form({
-        email: ''
+        email: '',
+        phone: ''
       }),
       messageDoneSubscribe: ''
     }
@@ -443,34 +451,41 @@ export default {
 
   methods: {
     // search methods
-    changePrice(price) {
-      this.$store.state.searchForm.filter_price = price
-      this.$store.state.searchForm.page = 1
-      this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
-    },
 
-    changeStars(star) {
-      this.$store.state.searchForm.filter_stars = star
-      this.$store.state.searchForm.page = 1
-      this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
-    },
+    // changeFromPrice(price) {
+    //   this.$store.state.searchForm.filter_from_price = price
+    //   this.$store.state.searchForm.page = 1
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
 
-    changeHotel(hotelId) {
-      // this.$store.state.searchForm.filter_hotel = hotelId
-      this.$store.state.searchForm.page = 1
-      this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
-    },
+    // changeToPrice(price) {
+    //   this.$store.state.searchForm.filter_to_price = price
+    //   this.$store.state.searchForm.page = 1
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
 
-    sorting(sortBy) {
-      this.$store.state.searchForm.sortBy = sortBy
-      this.$store.state.searchForm.page = 1
-      this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
-    },
+    // changeStars(star) {
+    //   this.$store.state.searchForm.filter_stars = star
+    //   this.$store.state.searchForm.page = 1
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
 
-    goToPageInSearch(pageNum) {
-      this.$store.state.searchForm.page = pageNum
-      this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
-    },
+    // changeHotel(hotelId) {
+    //   // this.$store.state.searchForm.filter_hotel = hotelId
+    //   this.$store.state.searchForm.page = 1
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
+
+    // sorting(sortBy) {
+    //   this.$store.state.searchForm.sortBy = sortBy
+    //   this.$store.state.searchForm.page = 1
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
+
+    // goToPageInSearch(pageNum) {
+    //   this.$store.state.searchForm.page = pageNum
+    //   this.$store.dispatch('getSearchData', [this, this.$store.state.searchForm])
+    // },
     // ======================================================================================
 
     // tabs travels offer
@@ -506,13 +521,9 @@ export default {
       this.$refs.carouselTravels.$el.classList.remove('active')
       setTimeout(() => {
         this.showCarouselTravels = false
-        if (currentTab === 1) {
-          this.currentDataTravelsOffer = this.allDataTravelsOffer.pilgrimage_umrah
-        } else if (currentTab === 2) {
-          this.currentDataTravelsOffer = this.allDataTravelsOffer.internal_travel
-        } else if (currentTab === 3) {
-          this.currentDataTravelsOffer = this.allDataTravelsOffer.honeymoon
-        }
+
+        this.currentDataTravelsOffer = this.allDataTravelsOffer[currentTab]
+
         this.responsiveCarouselTravels()
         setTimeout(() => this.showCarouselTravels = true)
         setTimeout(() => this.$refs.carouselTravels.$el.classList.add('active'))
@@ -524,9 +535,9 @@ export default {
       axios.get('/best-travels-offer').then(response => {
         const data = response.data
         if (typeof data === 'object') {
-          this.allDataTravelsOffer = data.travels
+          this.allDataTravelsOffer = data.tabs
           this.showCarouselTravelsLoading = true
-          setTimeout(() => this.toggleTabTravels(2))
+          setTimeout(() => this.toggleTabTravels(1))
         } else {
           setTimeout(() => this.getTravelsOffer(), 500)
         }
@@ -589,14 +600,14 @@ export default {
 
 
   watch: {
-    '$store.state.showSearchResult' (newVal) {
-      if (!newVal) {
-        this.$nextTick(() => {
-          this.currentTravelsOffer = 2
-          this.toggleTabTravels(1)
-        })
-      }
-    },
+    // '$store.state.showSearchResult' (newVal) {
+    //   if (!newVal) {
+    //     this.$nextTick(() => {
+    //       this.currentTravelsOffer = 2
+    //       this.toggleTabTravels(1)
+    //     })
+    //   }
+    // },
     'formSubscribe.email'(newVal) {
       if (newVal.trim() === '') {
         this.formSubscribe.errors.clear('email')
@@ -613,32 +624,32 @@ export default {
       })
     },
 
-    firstCategoryExternal () {
-      const categories = []
-      this.$menuList.forEach(program => {
-        program.categories.forEach(category => {
-          categories.push(category)
-        })
-      })
-      return categories.find(item => {
-        return item.type == 4
-      })
-    }
+    // firstCategoryExternal () {
+    //   const categories = []
+    //   this.$menuList.forEach(program => {
+    //     program.categories.forEach(category => {
+    //       categories.push(category)
+    //     })
+    //   })
+    //   return categories.find(item => {
+    //     return item.type == 4
+    //   })
+    // }
   },
 
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if (to.query.search && to.query.search == 'search' && Object.keys(to.query).length > 1) {
-        vm.$store.dispatch('updateSearchForm', to.query)
-        if (!to.params.search) {
-          vm.$store.dispatch('getSearchData', [vm, to.query])
-        }
-      } else {
-        vm.$store.state.showSearchResult = false
-        vm.$store.state.showLoading = false
-      }
-    })
-  }
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => {
+  //     if (to.query.search && to.query.search == 'search' && Object.keys(to.query).length > 1) {
+  //       vm.$store.dispatch('updateSearchForm', to.query)
+  //       if (!to.params.search) {
+  //         vm.$store.dispatch('getSearchData', [vm, to.query])
+  //       }
+  //     } else {
+  //       vm.$store.state.showSearchResult = false
+  //       vm.$store.state.showLoading = false
+  //     }
+  //   })
+  // }
 }
 </script>
 

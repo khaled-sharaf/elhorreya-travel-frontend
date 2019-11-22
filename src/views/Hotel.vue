@@ -14,10 +14,10 @@
               </span>
               {{ hotel.address }}
             </h3>
-            <div class="rating">
+            <!-- <div class="rating">
                 <span class="number"> {{ (hotel.rating / 20).toFixed(1) }} </span>
                 <rating :number="hotel.rating"></rating>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -148,8 +148,9 @@
               <div class="side-title">
                 <h3 class="text">معلومات عن فندق {{ hotel.name }}</h3>
               </div>
-              <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
-                <span v-html="hotel.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+              <p class="info-text view-text-editor" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
+                <!-- <span v-html="hotel.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span> -->
+                <span v-html="hotel.info"></span>
               </p>
           </div> <!-- informations -->
 
@@ -164,7 +165,7 @@
             <div class="wrapper-table-rooms">
               <b-table responsive bordered :items="hotel.rooms.filter(item => item.display === 1)" :fields="room_fields">
 
-                <template v-slot:cell(price_night)="data">
+                <!-- <template v-slot:cell(price_night)="data">
                   <div class="text-center">
                     <b class="main-color-dark">{{ data.value }}</b> جنية
                   </div>
@@ -179,7 +180,7 @@
                     فى
                     <b class="days">{{ handelNightsPeriod(data.item.offer_days) }}</b>
                   </div>
-                </template>
+                </template> -->
 
               </b-table>
             </div>
@@ -310,19 +311,19 @@ export default {
         },
         {
           key: 'options',
-          label: 'الخيارات',
+          label: 'نوع الإقامة',
           sortable: true
         },
-        {
-          key: 'price_night',
-          label: 'سعر الليلة',
-          sortable: true
-        },
-        {
-          key: 'offer_price',
-          label: 'العروض',
-          sortable: true
-        },
+        // {
+        //   key: 'price_night',
+        //   label: 'سعر الليلة',
+        //   sortable: true
+        // },
+        // {
+        //   key: 'offer_price',
+        //   label: 'العروض',
+        //   sortable: true
+        // },
       ]
     }
   },

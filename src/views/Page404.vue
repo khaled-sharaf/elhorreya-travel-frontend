@@ -30,7 +30,7 @@
 <template>
   <div class="page404">
     <div id="page404">
-      <h1 class="title-page404">الصفحة غير متاحة</h1>
+      <h1 class="title-page404">الصفحة غير موجودة</h1>
 
       <img class="image-page404" src="http://shorelineseafoodinc.com/assets/images/404.png" alt="404">
 

@@ -340,7 +340,7 @@ body {
 		};
 		.text {
 			font-weight: bold;
-			font-size: 1.5rem;
+			font-size: 1.2rem;
 			display: inline-block;
 			position: relative;
 			color: $colorFooter;
@@ -350,11 +350,11 @@ body {
 			};
 			a {
 				display: inline-block;
-				background-color: $mainColor;
 				color: $mainColorDark;
-				padding: 6px 10px;
+				padding: 6px;
 				border-radius: 3px;
-				font-size: 1.2rem;
+				font-weight: bold;
+				text-decoration: underline;
 			}
 			&:after, &:before {
 				content: '';
@@ -692,5 +692,15 @@ body {
 	}
 }
 /*****************************************************************************************/
+
+/*****************************************************************************************/
+
+.view-text-editor {
+	img {
+		max-width: 100%;
+		height: auto;
+		border: 1px solid #DDD;
+	}
+}
 
 /*****************************************************************************************/

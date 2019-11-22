@@ -28,12 +28,6 @@
       </div>
     </flux-parallax>
 
-    <!-- <section class="box-search" v-show="$store.state.showSearchBoxPages">
-      <b-container>
-        <search-box></search-box>
-      </b-container>
-    </section> -->
-
     <div class="travels-content main-content">
       <travel-boxs-page
         :showLoading="showLoadingTravels"
@@ -44,7 +38,6 @@
         :changeName="changeName"
         :changeHotel="changeHotel"
         :changeAddress="changeAddress"
-        :changeUmrahDate="changeUmrahDate"
         :sorting="sorting"
 
         :category="category"
@@ -57,30 +50,30 @@
 </template>
 
 <script>
-
-// import SearchBox from '@/components/SearchBox'
 import TravelBoxsPage from '@/components/TravelBoxsPage'
 
 export default {
   name: 'travels',
   components: {
-    // SearchBox,
     TravelBoxsPage
   },
 
   data () {
     return {
-      category: {},
+      category: {
+        name: "عروض الطيران",
+        discount: "15",
+        type: 4
+      },
       imageHeader: '',
       filters: {
-        category_id: '',
+        category_id: 'external',
         hotel_address: '',
         filter_to_price: '',
         filter_from_price: '',
-        filter_name: '',
         filter_stars: 7,
+        filter_name: '',
         filter_hotel: '',
-        umrah_date: '',
         sortBy: '',
         page: 1
       },
@@ -91,44 +84,16 @@ export default {
 
   methods: {
     resetFilter() {
-      this.filters.category_id = '',
+      this.filters.category_id = 'external',
       this.filters.hotel_address = '',
       this.filters.filter_to_price = '',
       this.filters.filter_from_price = '',
-      this.filters.filter_name = '',
       this.filters.filter_stars = 7,
+      this.filters.filter_name = '',
       this.filters.filter_hotel = '',
-      this.filters.umrah_date = '',
       this.filters.sortBy = '',
       this.filters.page = 1
     },
-
-    getCategory (id) {
-      this.resetFilter()
-      const categories = []
-      this.$menuList.forEach(program => {
-        program.categories.forEach(category => {
-          categories.push(category)
-        })
-      })
-      this.category = categories.find(item => {
-        return item.id == id
-      })
-      if (typeof this.category === 'object' && Object.keys(this.category).length) {
-        this.imageHeader = ''
-        this.$nextTick(() => {
-          setTimeout(() => {
-            this.imageHeader = this.category.image != null ? this.$domain + this.category.image : ''
-          })
-          this.$route.meta.title = this.category.name
-          this.filters.category_id = this.category.id
-          this.getTravels()
-        })
-      } else {
-        this.$router.push({name: '404'})
-      }
-    },
-
 
     getTravels(filters = this.filters) {
       this.showLoadingTravels = true
@@ -189,12 +154,6 @@ export default {
       this.getTravels()
     },
 
-    changeUmrahDate(date) {
-      this.filters.umrah_date = date
-      this.filters.page = 1
-      this.getTravels()
-    },
-
     goToPage(pageNum) {
       this.filters.page = pageNum
       this.getTravels()
@@ -203,14 +162,14 @@ export default {
 
 
   },
-
-  watch: {
-    '$route.params.id' (id) {
-      this.getCategory(id)
-    }
-  },
   created () {
-    this.getCategory(this.$route.params.id)
+    this.$nextTick(() => {
+      this.getTravels()
+      this.imageHeader = ''
+      setTimeout(() => {
+        this.imageHeader = this.$settings.fight_page_bg != null ? this.$domain + this.$settings.fight_page_bg : ''
+      })
+    })
   }
 }
 </script>

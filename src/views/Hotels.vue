@@ -39,8 +39,7 @@
                     </div>
                     <ul class="list-sorting shadow5" ref="listSorting">
                       <li :class="{active: filters.sortBy === 'stars'}" @click="sorting('stars')">عدد النجوم</li>
-                      <li :class="{active: filters.sortBy === 'rating'}" @click="sorting('rating')">التقييم</li>
-
+                      <!-- <li :class="{active: filters.sortBy === 'rating'}" @click="sorting('rating')">التقييم</li> -->
                     </ul>
                   </div>
                 </div>
@@ -60,6 +59,20 @@
                     <span class="star" v-for="star in 7" :key="star" @click="changeStars(star)">
                       <i class="fa-star" :class="{fas: star <= filters.stars, far: star > filters.stars}"></i>
                     </span>
+                  </div>
+                </div>
+
+                <div class="box name">
+                  <h5 class="title">اسم الفندق</h5>
+                  <div class="select">
+                    <div class="form-group">
+                      <input
+                        v-model="filters.name"
+                        class="form-control form-control-sm"
+                        @input="changeName()"
+                        placeholder="ابحث باسم الفندق"
+                      >
+                    </div>
                   </div>
                 </div>
 
@@ -111,10 +124,10 @@
                             <div class="content">
                               <h4 class="name" v-text="hotel.name"></h4>
                               <div class="address" v-text="hotel.address"></div>
-                              <div class="rating">
+                              <!-- <div class="rating">
                                 <span class="number" v-text="(hotel.rating / 20).toFixed(1)"></span>
                                 <rating :number="hotel.rating"></rating>
-                              </div>
+                              </div> -->
                             </div>
                           </router-link>
                         </div>
@@ -185,6 +198,7 @@ export default {
     return {
       imageHeader: '',
       filters: {
+        name: '',
         stars: 7,
         city: '',
         sortBy: '',
@@ -220,6 +234,13 @@ export default {
       }).catch(error => {
         setTimeout(() => this.getHotels(), 500)
       })
+    },
+
+    changeName() {
+      setTimeout(() => {
+        this.filters.page = 1
+        this.getHotels()
+      }, 1000)
     },
 
     changeStars(star) {

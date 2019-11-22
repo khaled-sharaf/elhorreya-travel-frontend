@@ -41,11 +41,11 @@
       </div>
     </flux-parallax>
 
-    <section class="box-search" v-if="$store.state.showSearchBoxPages">
+    <!-- <section class="box-search" v-if="$store.state.showSearchBoxPages">
       <b-container>
         <search-box></search-box>
       </b-container>
-    </section>
+    </section> -->
 
     <b-container>
       <div class="categories-content main-content">
@@ -76,13 +76,13 @@
 
 
 <script>
-import SearchBox from '@/components/SearchBox'
+// import SearchBox from '@/components/SearchBox'
 import CategoryBox from '@/components/CategoryBox'
 
 export default {
   name: 'categories',
   components: {
-    SearchBox,
+    // SearchBox,
     CategoryBox
   },
 

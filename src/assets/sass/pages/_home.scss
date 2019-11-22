@@ -45,7 +45,7 @@
 
 		.wrapper-why-we {
 			text-align: center;
-			background-color: #EEE;
+			// background-color: #EEE;
 			padding-bottom: 30px;
 			.section-title-center {
 				margin-bottom: 70px;
@@ -436,15 +436,24 @@
           margin-bottom: 50px;
           @include maxMedium {
             text-align: center;
-            .content .form-inline {
-              justify-content: center;
-              @media (max-width: 400px) {
+            .content {
+              .form-group, .message-alert {
+                margin: {
+                  left: auto;
+                  right: auto;
+                };
+              }
+              .btn {
                 display: block;
+                width: 60%;
+                margin: auto;
+                @media (max-width: 400px) {
+                  width: 100%;
+                }
               }
             }
           }
-          .form-group {
-            margin-bottom: 0;
+          .form-group, .message-alert {
             margin-left: 10px;
             width: 60%;
             @media (max-width: 400px) {
@@ -457,33 +466,32 @@
           }
           .form-control {
             width: 100%;
-            height: 48px;
+            // height: 40px;
             font-size: 15px;
           }
           .btn {
-            height: 48px;
-            padding: 0 20px;
+            // height: 48px;
+            // padding: 0 20px;
             font-size: 16px;
-            min-width: 80px;
+            min-width: 100px;
           }
 
           .message {
-            font-size: 13px;
+            font-size: 12px;
             .error {
-              color: #c72626;
-              margin-top: 5px;
+              color: #c72626 !important;
               font-weight: bold;
             }
-            .message-success {
-              margin-top: 15px;
-              display: inline-block;
-              padding-left: 4rem;
-              padding-right: 10px;
-              .close {
-                left: 0;
-                right: auto;
-                padding-top: 8px;
-              }
+          }
+          .message-success {
+            margin-top: 15px;
+            display: block;
+            padding-left: 4rem;
+            padding-right: 10px;
+            .close {
+              left: 0;
+              right: auto;
+              padding-top: 8px;
             }
           }
         }

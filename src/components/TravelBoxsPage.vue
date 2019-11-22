@@ -53,15 +53,34 @@
           <b-col md="4" lg="3">
             <div class="side-right">
 
+
               <div class="box price">
                 <h5 class="title">السعر</h5>
 
+                <!-- min price -->
                 <div class="show-price">
-                  من
+                  أقل سعر مطلوب
                   <span class="from">
                     {{ from_price }}
                   </span>
-                  إلى
+                  جنية
+                </div>
+
+                <div class="price-range">
+                  <range-slider
+                    v-model="from_price"
+                    class="price-range-slider"
+                    :min="min_price"
+                    :max="max_price"
+                    :step="100"
+                    @change="changeFromPriceLocale()"
+                  ></range-slider>
+                </div>
+
+
+                <!-- max price -->
+                <div class="show-price">
+                  أعلى سعر مطلوب
                   <span class="to">
                     {{ to_price }}
                   </span>
@@ -72,13 +91,14 @@
                   <range-slider
                     v-model="to_price"
                     class="price-range-slider"
-                    :min="from_price"
+                    :min="min_price"
                     :max="max_price"
                     :step="100"
-                    @change="changePriceLocale()"
+                    @change="changeToPriceLocale()"
                   ></range-slider>
                 </div>
               </div>
+
 
               <div class="box stars">
                 <h5 class="title">عدد نجوم الفندق</h5>
@@ -86,6 +106,20 @@
                   <span class="star" v-for="star in 7" :key="star" @click="changeStarsLocale(star)">
                     <i class="fa-star" :class="{fas: star <= stars, far: star > stars}"></i>
                   </span>
+                </div>
+              </div>
+
+               <div class="box name" v-if="category.type !== 4">
+                <h5 class="title">اسم الرحلة</h5>
+                <div class="select">
+                  <div class="form-group">
+                    <input
+                      v-model="name"
+                      class="form-control form-control-sm"
+                      @input="changeNameLocale()"
+                      placeholder="ابحث باسم الرحلة"
+                    >
+                  </div>
                 </div>
               </div>
 
@@ -168,7 +202,8 @@
                 <div class="travels-boxs-view" v-else>
                   <b-row v-if="paginateData.data.length">
                     <b-col sm="6" md="12" lg="6" xl="4" v-for="travel in paginateData.data" :key="travel.id">
-                      <travel-box :travel="travel"></travel-box>
+                      <travel-box-flight v-if="$route.name === 'flight'" :travel="travel"></travel-box-flight>
+                      <travel-box v-else :travel="travel"></travel-box>
                     </b-col>
                   </b-row>
 
@@ -218,16 +253,28 @@
         </b-row>
       </b-container>
     </div>
+
+    <div class="wrapper-loading" v-else>
+      <div class="loading-view">
+        <div class="icon">
+          <i class="fas fa-circle-notch fa-spin"></i>
+        </div>
+        <div class="text">من فضلك انتظر قليلا...</div>
+      </div>
+    </div>
+
 </template>
 
 
 <script>
 
+import TravelBoxFlight from '@/components/TravelBoxFlight'
 import TravelBox from '@/components/TravelBox'
 
 export default {
   components: {
-    TravelBox
+    TravelBox,
+    TravelBoxFlight
   },
 
   props: {
@@ -235,24 +282,37 @@ export default {
       type: Object,
       required: true
     },
+
     paginateClick: {
       type: Function,
       required: true
     },
+
     showLoading: {
       type: Boolean,
       required: true
     },
+
     category: {
       required: true
     },
 
-    changePrice: {
+    changeFromPrice: {
+      type: Function,
+      required: true
+    },
+
+    changeToPrice: {
       type: Function,
       required: true
     },
 
     changeStars: {
+      type: Function,
+      required: true
+    },
+
+    changeName: {
       type: Function,
       required: true
     },
@@ -276,9 +336,11 @@ export default {
 
   data () {
     return {
-      from_price: 200,
-      to_price: 70000,
-      max_price: 70000,
+      min_price: 100,
+      max_price: 100000,
+      to_price: 100000,
+      from_price: 100000,
+      name: '',
       stars: 7,
       city: '',
       hotel: '',
@@ -296,14 +358,22 @@ export default {
 
 
   methods: {
-    changePriceLocale() {
-      this.changePrice(this.to_price)
+    changeFromPriceLocale() {
+      this.changeFromPrice(this.from_price)
+    },
+
+    changeToPriceLocale() {
+      this.changeToPrice(this.to_price)
     },
 
     changeStarsLocale(star) {
       if (this.stars === star) return
       this.stars = star
       this.changeStars(this.stars)
+    },
+
+    changeNameLocale() {
+      this.changeName(this.name)
     },
 
     changeAddressLocale() {
@@ -339,14 +409,18 @@ export default {
       axios.get('/min-max-price-travels').then(response => {
         const data = response.data
         if (typeof data === 'object') {
-          this.from_price = data.min
+          this.min_price = data.min
           this.max_price = data.max
           this.to_price = this.max_price
+          this.from_price = this.min_price
           if (typeof this.category !== 'object' && this.category === 'search') {
             setTimeout(() => {
               if (Object.keys(this.$route.query).length) {
-                if (this.$route.query.filter_price != '') {
-                  this.to_price = this.$route.query.filter_price
+                if (this.$route.query.filter_to_price != '') {
+                  this.to_price = this.$route.query.filter_to_price
+                }
+                if (this.$route.query.filter_from_price != '') {
+                  this.from_price = this.$route.query.filter_from_price
                 }
               }
             }, 200)
@@ -430,7 +504,6 @@ export default {
             }).filter((value, index, self) => {
                 return self.indexOf(value) === index;
             })
-            console.log(this.category.name, this.hotelsAddress)
           }
 
           this.city = ''
@@ -532,6 +605,7 @@ export default {
     '$route.params.id'() {
       this.handelPropsWhenChangeRouteAndMounted()
       this.to_price = this.max_price
+      this.from_price = this.min_price
       this.sortBy = ''
       this.stars = 7
       if (this.category.type === 2) {
@@ -541,7 +615,13 @@ export default {
 
     to_price(newVal) {
       if (typeof this.category !== 'object' && this.category === 'search') {
-        this.$store.state.searchForm.filter_price = newVal
+        this.$store.state.searchForm.filter_to_price = newVal
+      }
+    },
+
+    from_price(newVal) {
+      if (typeof this.category !== 'object' && this.category === 'search') {
+        this.$store.state.searchForm.filter_from_price = newVal
       }
     },
 

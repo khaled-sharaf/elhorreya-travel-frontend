@@ -6,6 +6,7 @@ import Blog from './views/Blog.vue'
 import Blogs from './views/Blogs.vue'
 import Categories from './views/Categories.vue'
 import ContactUs from './views/ContactUs.vue'
+import Flight from './views/Flight.vue'
 import Hotel from './views/Hotel.vue'
 import Hotels from './views/Hotels.vue'
 import ImagesCategory from './views/ImagesCategory.vue'
@@ -58,6 +59,14 @@ const vueRouter = new Router({
         title: 'اتصل بنا'
       },
       component: ContactUs
+    },
+    {
+      path: '/flight',
+      name: 'flight',
+      meta: {
+        title: 'عروض الطيران'
+      },
+      component: Flight
     },
     {
       path: '/hotel/:id',

@@ -36,6 +36,7 @@
                   </ul>
                 </li>
 
+                <li :class="{active: $route.name == 'flight'}"><router-link :to="{name: 'flight'}"> عروض الطيران </router-link></li>
                 <li :class="{active: $route.name == 'hotels'}"><router-link :to="{name: 'hotels'}"> الفنادق </router-link></li>
                 <li :class="{active: $route.name == 'travels-images-categories' || ($route.name == 'images-category' && getCategories.indexOf($route.params.id) != -1)}"><router-link :to="{name: 'travels-images-categories'}"> الصور </router-link></li>
                 <li :class="{active: $route.name == 'blogs'}"><router-link :to="{name: 'blogs'}"> المدونات </router-link></li>

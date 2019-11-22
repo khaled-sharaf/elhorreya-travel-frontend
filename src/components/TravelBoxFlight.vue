@@ -1,5 +1,5 @@
 <template>
-  <div class="travel-box">
+  <div class="travel-box-flight">
     <div class="wrapper-travel-box">
       <div class="header">
           <flux-parallax class="travel-box-bg" v-if="travelImage != ''" :src="travelImage" height="150px" offset="200%" type="relative">
@@ -12,66 +12,30 @@
             </router-link>
           </flux-parallax>
       </div>
-      <div class="content">
-        <div class="name" v-text="travel.name"></div>
-
-        <div class="separator-details" v-if="travel.hotel_2 === null"></div>
-
-        <div class="box address">
-          <span class="icon">
-            <i class="fas fa-map-marker-alt"></i>
-          </span>
-          <span class="value" v-text="travel.type == 'pilgrimage' || travel.type == 'umrah' ? 'فندق مكة: ' + travel.hotel.name : travel.hotel.address"></span>
-        </div>
-
-        <div class="box address" v-if="travel.hotel_2 !== null">
-          <span class="icon">
-            <i class="fas fa-map-marker-alt"></i>
-          </span>
-          <span class="value" v-text="travel.type == 'pilgrimage' || travel.type == 'umrah' ? 'فندق المدينة: ' + travel.hotel_2.name : travel.hotel_2.address"></span>
-        </div>
-
-        <div class="box time-period">
-          <span class="icon">
-            <i class="far fa-clock"></i>
-          </span>
-          <span class="value">
-            {{ handelDaysPeriod(travel.offers[0].time_period) }}
-            <div class="separator" v-if="travel.offers[0].time_period > 1">|</div>
-            {{ handelNightsPeriod(travel.offers[0].time_period - 1) }}
-          </span>
-        </div>
-
-        <!-- <div class="box rating">
-          <span class="icon">
-            <span class="number-rate">
-              {{ (travel.hotel.rating / 20).toFixed(1) }}
-            </span>
-          </span>
-          <span class="value">
-            <rating :number="travel.hotel.rating"></rating>
-          </span>
-        </div> -->
-
-      </div>
 
       <div class="footer">
-        <div class="wrapper-price">
-          <div class="side">
-            السعر
-            <br>
-            يبدأ من
+        <div class="content">
+
+          <div class="address">
+            {{ travel.address_from + ' - ' + travel.hotel.address }}
           </div>
-          <div class="side">
+
+          <div class="time-period">
+            {{ handelDaysPeriod(travel.offers[0].time_period) }}
+            <!-- <div class="separator" v-if="travel.offers[0].time_period > 1">|</div>
+            {{ handelNightsPeriod(travel.offers[0].time_period - 1) }} -->
+          </div>
+
+          <div class="wrapper-price">
             <money v-model="travel.offers[0].single_price" v-bind="{masked: true}"></money>
             <span class="price-number">{{travel.offers[0].single_price}}</span>
-            <br>
             جنية
           </div>
+
         </div>
 
         <div class="booking">
-          <b-button block variant="warning" :to="{name: 'travel', params: {id: travel.id, travel: travel}}">حجز</b-button>
+          <b-button variant="warning" size="sm" :to="{name: 'travel', params: {id: travel.id, travel: travel}}">حجز</b-button>
           <div class="wrapper-details-booking">
             <h4 class="title">
               للحجز يرجى التواصل على
@@ -120,7 +84,6 @@ export default {
       required: true
     }
   },
-
 
   data () {
     return {

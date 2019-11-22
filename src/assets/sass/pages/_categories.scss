@@ -1,4 +1,5 @@
 .categories-content {
+	padding-top: 50px;
 	@include minMedium {
 		width: 80%;
 		margin: {
@@ -7,7 +8,6 @@
 		}
 	}
 	@include maxSmall {
-		padding-top: 50px;
 		.title-page {
 			.text {
 				font-size: 1.4rem;

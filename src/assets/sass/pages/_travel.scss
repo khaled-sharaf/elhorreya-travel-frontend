@@ -30,6 +30,24 @@
 	}
 	// =================================================================
 
+	.informations {
+		.info-contact {
+			.row-contact {
+				.side {
+					padding-right: 10px;
+					margin-bottom: 10px;
+					.icon {
+						display: inline-block;
+						width: 30px;
+						color: $mainColor;
+					}
+					.text {
+						color: $mainColorDark;
+					}
+				}
+			}
+		}
+	}
 
 	.offers-tables {
 		.wrapper-tabel-offers {
@@ -54,6 +72,9 @@
 							&.c-price {
 								min-width: 180px;
 							}
+							&.c-itinerary {
+								min-width: 180px;
+							}
 						}
 					}
 
@@ -61,19 +82,19 @@
 						flex-basis: calc(100% / 8);
 						text-align: center;
 						border-left: 1px solid #f6c78a;
+						&.go-and-back {
+							min-width: 130px;
+						}
+						&.hotel-days {
+							min-width: 150px;
+						}
 						@include maxLarge {
-							flex-basis: calc(100% / 6);
+							flex-basis: calc(100% / 4);
 							.value {
 								border-width: 2px !important;
 							}
 						}
-						@include maxMedium {
-							flex-basis: calc(100% / 4);
-						}
 						@include maxSmall {
-							flex-basis: calc(100% / 3);
-						}
-						@include maxMobile {
 							flex-basis: calc(100% / 2);
 						}
 						@media (max-width: 400px) {
@@ -106,7 +127,7 @@
 							padding: 3px;
 
 
-							.time-period, .price {
+							.time-period, .price .prices {
 								display: flex;
 								justify-content: center;
 								align-items: center;
@@ -120,14 +141,49 @@
 									font-size: 14px;
 								}
 							}
-							.price {
+							.hotel-days-view {
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+								font-size: 12px;
 								> div {
 									margin: 0 5px;
-									.price-value {
-										margin-top: 5px;
-										font-weight: bold;
+								}
+								.days {
+									font-weight: bold;
+								}
+							}
+
+							.itinerary {
+
+							}
+
+
+							.price {
+								.prices {
+									> div {
+										margin: 0 5px;
 									}
 								}
+								.price-value {
+									margin-top: 5px;
+									font-weight: bold;
+								}
+							}
+						}
+					}
+
+					&.custom-travel {
+						.t-col {
+							flex-basis: calc(100% / 6) !important;
+							@include maxMedium {
+								flex-basis: calc(100% / 3) !important;
+							}
+							@include maxMobile {
+								flex-basis: calc(100% / 2) !important;
+							}
+							@media (max-width: 400px) {
+								flex-basis: 100% !important;
 							}
 						}
 					}
@@ -136,7 +192,20 @@
 				.desc-offer {
 					margin-top: 5px;
 					color: $mainColorDark;
-					font-size: 1.1rem;
+					font-size: 13px;
+					.title {
+						display: inline-block;
+						width: 100px;
+						// font-size: 13px;
+						font-weight: bold;
+					}
+					.bold {
+						color: #d4980d;
+						font-weight: bold;
+					}
+					b {
+						color: #d4980d;
+					}
 				}
 			}
 		}

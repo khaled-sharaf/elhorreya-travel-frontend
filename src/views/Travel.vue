@@ -152,6 +152,32 @@
         <!-- ================================================================================ -->
 
         <b-container>
+          <div class="informations contact-us">
+              <div class="side-title">
+                <h3 class="text">
+                  للإستفسار اتصل على
+                </h3>
+              </div>
+              <div class="info-contact">
+                <div class="row-contact">
+                  <div class="side" v-if="$settings.mobile_1 != null">
+                    <span class="icon">
+                      <i class="fas fa-phone"></i>
+                    </span>
+                    <span class="text" v-text="$settings.mobile_1"></span>
+                  </div> <!-- ./side -->
+
+                  <div class="side" v-if="$settings.mobile_2 != null">
+                    <span class="icon">
+                      <i class="fas fa-phone"></i>
+                    </span>
+                    <span class="text" v-text="$settings.mobile_2"></span>
+                  </div> <!-- ./side -->
+                </div> <!-- ./row-contact -->
+              </div>
+          </div> <!-- informations -->
+
+
           <div class="informations hotel-info">
               <div class="side-title">
                 <h3 class="text">
@@ -163,8 +189,8 @@
                   {{ travel.hotel.address }}
                 </h3>
               </div>
-              <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
-                <span v-html="travel.hotel.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+              <p class="info-text view-text-editor" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
+                <span v-html="travel.hotel.info"></span>
               </p>
           </div> <!-- informations -->
 
@@ -183,8 +209,8 @@
                   {{ travel.hotel_2.address }}
                 </h3>
               </div>
-              <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
-                <span v-html="travel.hotel_2.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+              <p class="info-text view-text-editor" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
+                <span v-html="travel.hotel_2.info"></span>
               </p>
           </div> <!-- informations -->
 
@@ -196,8 +222,8 @@
               <div class="side-title">
                 <h3 class="text"> تفاصيل الرحلة</h3>
               </div>
-              <p class="info-text" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
-                <span v-html="travel.info.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+              <p class="info-text view-text-editor" v-read-more:toggle="{limit: 500, textBtnRead: 'اقرأ المزيد', textBtnUnread: 'اقرأ أقل'}">
+                <span v-html="travel.info"></span>
               </p>
           </div> <!-- informations -->
 
@@ -206,7 +232,7 @@
 
           <div class="offers-tables">
             <div class="side-title">
-              <h3 class="text">الأسعار والعروض المتاحة</h3>
+              <h3 class="text">الأسعار والحجز</h3>
             </div>
 
             <div class="wrapper-tabel-offers">
@@ -217,7 +243,7 @@
                     {{ counterText[idx] }}
                   </h4>
                 </div>
-                <div class="t-row">
+                <div class="t-row" :class="{'custom-travel': travel.type !== 'umrah' && travel.type !== 'pilgrimage'}">
                   <div class="t-col">
                     <div class="label">
                       <span class="icon">
@@ -257,6 +283,32 @@
                   </div>
                   <!-- ====================================== -->
 
+                  <div class="t-col hotel-days" v-if="travel.type === 'umrah' || travel.type === 'pilgrimage'">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="far fa-clock"></i>
+                      </span>
+                      أيام الفنادق
+                    </div>
+                    <div class="value">
+                      <div class="hotel-days-view">
+                        <div>
+                          فندق مكة
+                          <div class="days">
+                            {{ handelDaysPeriod(offer.hotel_days) }}
+                          </div>
+                        </div>
+                        <div>
+                          فندق المدينة
+                          <div class="days">
+                            {{ handelDaysPeriod(offer.hotel_2_days) }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ====================================== -->
+
                   <div class="t-col">
                     <div class="label">
                       <span class="icon">
@@ -268,7 +320,27 @@
                   </div>
                   <!-- ====================================== -->
 
-                  <div class="t-col">
+                  <div class="t-col c-itinerary" v-if="travel.type === 'umrah' || travel.type === 'pilgrimage'">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="fas fa-bus-alt"></i>
+                      </span>
+                      خط السير
+                    </div>
+                    <div class="value">
+                      <div class="itinerary">
+                        <span v-text="travel.itinerary_1"></span> -
+                        <span v-text="travel.itinerary_2"></span> -
+                        <span v-text="travel.itinerary_3"></span> -
+                        <span v-text="travel.itinerary_4"></span>
+                        {{ travel.itinerary_5 !== null ? ' - ' : '' }}
+                        <span v-text="travel.itinerary_5 !== null ? travel.itinerary_5 : ''"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ====================================== -->
+
+                  <!-- <div class="t-col">
                     <div class="label">
                       <span class="icon">
                         <i class="fas fa-bus-alt"></i>
@@ -276,10 +348,10 @@
                       النقل
                     </div>
                     <div class="value" v-text="offer.transport === 1 ? 'شامل الانتقالات' : 'بدون انتقالات'"></div>
-                  </div>
+                  </div> -->
                   <!-- ====================================== -->
-
-                  <div class="t-col">
+<!--
+                  <div class="t-col go-and-back" v-if="travel.type === 'umrah' || travel.type === 'pilgrimage'">
                     <div class="label">
                       <span class="icon">
                         <i class="fas fa-exchange-alt"></i>
@@ -287,7 +359,7 @@
                       الذهاب والعودة
                     </div>
                     <div class="value" v-text="offer.go_and_back === 1 ? 'ذهاب وعودة' : 'ذهاب فقط'"></div>
-                  </div>
+                  </div> -->
                   <!-- ====================================== -->
 
                   <div class="t-col c-price">
@@ -299,20 +371,37 @@
                     </div>
                     <div class="value">
                       <div class="price">
-                        <div class="price-1">
+
+                        <div class="price-1" v-if="travel.travel_category != null && travel.travel_category.name === 'شهر العسل'">
                           <money v-model="offer.single_price" v-bind="{masked: true}"></money>
-                          <div class="price-label">فردية</div>
-                          <div class="price-value">{{ offer.single_price }}</div>
+                          <div class="price-label">
+                            <!-- زوجى -->
+                          </div>
+                          <span class="price-value">{{ offer.single_price }}</span> جنية
                         </div>
-                        <div class="price-2" v-if="offer.twin_price != null">
-                          <money v-model="offer.twin_price" v-bind="{masked: true}"></money>
-                          <div class="price-label">مزدوجة</div>
-                          <div class="price-value">{{ offer.twin_price }}</div>
-                        </div>
-                        <div class="price-3" v-if="offer.triple_price != null">
-                          <money v-model="offer.triple_price" v-bind="{masked: true}"></money>
-                          <div class="price-label">ثلاثية</div>
-                          <div class="price-value">{{ offer.triple_price }}</div>
+
+                        <div v-else class="prices">
+                          <div class="price-1">
+                            <money v-model="offer.single_price" v-bind="{masked: true}"></money>
+                            <div class="price-label">
+                              {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'زوجى' : 'فردى' }}
+                            </div>
+                            <div class="price-value">{{ offer.single_price }}</div>
+                          </div>
+                          <div class="price-2" v-if="offer.twin_price != null">
+                            <money v-model="offer.twin_price" v-bind="{masked: true}"></money>
+                            <div class="price-label">
+                              {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'ثلاثى' : 'زوجى' }}
+                            </div>
+                            <div class="price-value">{{ offer.twin_price }}</div>
+                          </div>
+                          <div class="price-3" v-if="offer.triple_price != null">
+                            <money v-model="offer.triple_price" v-bind="{masked: true}"></money>
+                            <div class="price-label">
+                              {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'رباعى' : 'ثلاثى' }}
+                            </div>
+                            <div class="price-value">{{ offer.triple_price }}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -335,7 +424,23 @@
                 </div> <!-- t-row -->
 
                 <div class="desc-offer">
-                  {{ offer.info_offer }}
+                  <span class="bold" v-text="offer.info_offer"></span>
+                </div>
+
+                <div class="desc-offer" v-if="offer.transport === 1">
+                  <span class="bold">العرض يشمل الانتقالات</span>
+                </div>
+
+                <div class="desc-offer" v-if="(travel.type === 'umrah' || travel.type === 'pilgrimage') && offer.child_price != null">
+                  <span class="title">سعر الطفل:</span>
+                  <b>{{ offer.child_price }}</b>
+                  جنية
+                </div>
+
+                <div class="desc-offer" v-if="(travel.type === 'umrah' || travel.type === 'pilgrimage') && offer.baby_price != null">
+                  <span class="title">سعر الرضيع:</span>
+                  <b>{{ offer.baby_price }}</b>
+                  جنية
                 </div>
 
               </div> <!-- offer-box -->
@@ -364,24 +469,24 @@
                 <b-col md="6">
                   <div class="form-group required">
                     <input
-                      v-model="formBooking.email"
-                      class="form-control"
-                      :class="{ 'is-invalid': formBooking.errors.has('email') }"
-                      placeholder="البريد الإليكترونى"
-                    >
-                    <has-error :form="formBooking" field="email"></has-error>
-                  </div>
-                </b-col>
-
-                <b-col md="4">
-                  <div class="form-group">
-                    <input
                       v-model="formBooking.phone"
                       class="form-control"
                       :class="{ 'is-invalid': formBooking.errors.has('phone') }"
                       placeholder="رقم الهاتف"
                     >
                     <has-error :form="formBooking" field="phone"></has-error>
+                  </div>
+                </b-col>
+
+                <b-col md="4">
+                  <div class="form-group">
+                    <input
+                      v-model="formBooking.email"
+                      class="form-control"
+                      :class="{ 'is-invalid': formBooking.errors.has('email') }"
+                      placeholder="البريد الإليكترونى"
+                    >
+                    <has-error :form="formBooking" field="email"></has-error>
                   </div>
                 </b-col>
 
@@ -702,13 +807,14 @@ export default {
       }
       // merge hotel image in travel image
       const hotelGallery = []
-      if (typeof this.travel.hotel.gallery !== 'object' && this.travel.hotel.gallery != null && this.travel.hotel.gallery != '') {
+      if (typeof this.travel.hotel.gallery === 'string' && this.travel.hotel.gallery != '') {
         this.travel.hotel.gallery.split(',').forEach((image, i) => {
           hotelGallery.push({value: image})
         })
       }
+
       const hotelFeatures = []
-      if (typeof this.travel.hotel.gallery !== 'object' && this.travel.hotel.gallery != null && this.travel.hotel.gallery != '') {
+      if (typeof this.travel.hotel.features === 'string' && this.travel.hotel.features != '') {
         this.travel.hotel.features.split(',').forEach((feature, i) => {
           if (feature != '') {
             hotelFeatures.push({id: i, value: feature})
@@ -717,7 +823,33 @@ export default {
       }
       this.travel.hotel.features = hotelFeatures
       this.travel.hotel.gallery = hotelGallery
-      this.gallery = this.travel.gallery.concat(hotelGallery)
+
+      this.gallery = hotelGallery.concat(this.travel.gallery)
+
+      if (this.travel.hotel_2 != null) {
+        const hotel2Gallery = []
+        if (typeof this.travel.hotel_2.gallery === 'string' && this.travel.hotel_2.gallery != '') {
+          this.travel.hotel_2.gallery.split(',').forEach((image, i) => {
+            hotel2Gallery.push({value: image})
+          })
+        }
+
+        const hotel2Features = []
+        if (typeof this.travel.hotel_2.features === 'string' && this.travel.hotel_2.features != '') {
+          this.travel.hotel_2.features.split(',').forEach((feature, i) => {
+            if (feature != '') {
+              hotel2Features.push({id: i, value: feature})
+            }
+          })
+        }
+
+        this.travel.hotel_2.features = hotel2Features
+        this.travel.hotel_2.gallery = hotel2Gallery
+
+        this.gallery = this.gallery.concat(hotel2Gallery)
+      }
+
+
 
       this.$nextTick(() => {
         this.imageHeader = this.travel.image != null ? this.$domain + this.travel.image : ''

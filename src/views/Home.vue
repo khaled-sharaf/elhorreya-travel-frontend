@@ -54,7 +54,7 @@
             <b-container>
               <div class="section-title-center">
                 <h2 class="text">
-                  أفضل عروض الرحلات
+                  {{ $settings.offers_best_tabs_home_title }}
                 </h2>
               </div>
 
@@ -127,7 +127,7 @@
             <b-container>
               <div class="section-title-center">
                 <h2 class="text">
-                  أفضل عروض الفنادق
+                  {{ $settings.hotels_best_home_title }}
                 </h2>
                 <div class="show-all">
                   <router-link :to="{name: 'hotels'}" class="text">
@@ -261,7 +261,9 @@
             <b-container>
               <div class="section-title-center">
                 <h2 class="text">
-                  <router-link :to="{name: 'images-category', params: {id: 'testimonials'}}">أراء العملاء</router-link>
+                  <router-link :to="{name: 'images-category', params: {id: 'testimonials'}}">
+                    {{ $settings.testimonials_home_title }}
+                  </router-link>
                 </h2>
               </div>
 
@@ -309,8 +311,7 @@
             <b-container>
               <div class="section-title-center">
                 <h2 class="text">
-                  لماذا
-                  {{ $settings.site_name_ar }}
+                  {{ $settings.why_we_home_title }}
                 </h2>
               </div>
 
@@ -514,7 +515,7 @@ export default {
         const data = response.data
         if (typeof data === 'object') {
           this.allDataTravelsOffer = data.tabs
-          setTimeout(() => this.toggleTabTravels(1))
+          setTimeout(() => this.toggleTabTravels(0))
           this.showCarouselTravelsLoading = false
         } else {
           setTimeout(() => this.getTravelsOffer(), 500)

@@ -7,7 +7,7 @@
             <span class="mark-underline">{{ travel.name }}</span>
           </h1>
 
-          <div class="desc">
+          <div class="desc" v-if="travel.type !==  'pilgrimage' && travel.type !== 'umrah'">
             <h3 class="text">
               <span class="icon">
                 <i class="fas fa-map-marker-alt"></i>
@@ -21,7 +21,7 @@
         <div class="header-left" v-if="travel.discount != null">
           <div class="discount-travel">
               خصم
-              <span class="number"> {{ travel.discount }}% </span>
+              <span class="number"> {{ travel.discount }} جنية</span>
           </div>
         </div>
 
@@ -132,6 +132,10 @@
                           </div> <!-- ./side -->
                         </div> <!-- ./row-contact -->
                       </div>
+
+                      <div class="booking-travel-now text-center mt-5">
+                        <b-button variant="warning" @click="showPrices()">احجز الأن</b-button>
+                      </div>
                     </div>
                   </b-col>
                   <!-- ================================================================================ -->
@@ -161,22 +165,22 @@
               </li>
               <li
                 class="tab"
-                @click="showTab = 'price'"
-                :class="{active: showTab == 'price'}"
+                @click="showTab = 'hotels'"
+                :class="{active: showTab == 'hotels'}"
               >
-                الأسعار
+                فنادق الرحلة
                 <span class="icon">
-                  <i class="fas fa-money-bill-alt"></i>
+                  <i class="fas fa-building"></i>
                 </span>
               </li>
               <li
                 class="tab"
-                @click="showTab = 'hotels'"
-                :class="{active: showTab == 'hotels'}"
+                @click="showTab = 'price'"
+                :class="{active: showTab == 'price'}"
               >
-                الفنادق
+                أسعار الرحلة
                 <span class="icon">
-                  <i class="fas fa-building"></i>
+                  <i class="fas fa-money-bill-alt"></i>
                 </span>
               </li>
             </ul>
@@ -203,7 +207,7 @@
           <vue-slide :active="showTab == 'price'" :duration="600" :use-hidden="false">
             <div class="offers-tables">
               <div class="side-title">
-                <h3 class="text">الأسعار والحجز</h3>
+                <h3 class="text">أسعار الرحلة</h3>
               </div>
 
               <div class="wrapper-tabel-offers">
@@ -303,8 +307,9 @@
                         <div class="itinerary">
                           <span v-text="travel.itinerary_1"></span> -
                           <span v-text="travel.itinerary_2"></span> -
-                          <span v-text="travel.itinerary_3"></span> -
-                          <span v-text="travel.itinerary_4"></span>
+                          <span v-text="travel.itinerary_3"></span>
+                          {{ travel.itinerary_4 !== null ? ' - ' : '' }}
+                          <span v-text="travel.itinerary_4 !== null ? travel.itinerary_4 : ''"></span>
                           {{ travel.itinerary_5 !== null ? ' - ' : '' }}
                           <span v-text="travel.itinerary_5 !== null ? travel.itinerary_5 : ''"></span>
                         </div>
@@ -325,7 +330,7 @@
                           <div class="price-1" v-if="travel.travel_category != null && travel.travel_category.name === 'شهر العسل'">
                             <money v-model="offer.single_price" v-bind="{masked: true}"></money>
                             <div class="price-label">
-                              <!-- زوجى -->
+                              <!-- ثنائى -->
                             </div>
                             <span class="price-value">{{ offer.single_price }}</span> جنية
                           </div>
@@ -334,14 +339,14 @@
                             <div class="price-1">
                               <money v-model="offer.single_price" v-bind="{masked: true}"></money>
                               <div class="price-label">
-                                {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'زوجى' : 'فردى' }}
+                                {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'ثنائى' : 'فردى' }}
                               </div>
                               <div class="price-value">{{ offer.single_price }}</div>
                             </div>
                             <div class="price-2" v-if="offer.twin_price != null">
                               <money v-model="offer.twin_price" v-bind="{masked: true}"></money>
                               <div class="price-label">
-                                {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'ثلاثى' : 'زوجى' }}
+                                {{ travel.type === 'umrah' || travel.type === 'pilgrimage' ? 'ثلاثى' : 'ثنائى' }}
                               </div>
                               <div class="price-value">{{ offer.twin_price }}</div>
                             </div>
@@ -822,16 +827,6 @@ export default {
         this.autoResizeTextArea()
       })
     },
-    showModalBooking(offer, idx) {
-      this.modalBookingData.title = 'حجز العرض ' + this.counterText[idx]
-      this.formBooking.travel_detail_id = offer.id
-      this.formBooking.offer_number = this.counterText[idx]
-      this.formBooking.errors.clear()
-      this.$bvModal.show('modal-booking')
-      this.$nextTick(() => {
-        this.autoResizeTextArea()
-      })
-    },
 
     booking() {
       this.formBooking.post('/booking').then(response => {
@@ -1007,6 +1002,13 @@ export default {
           $(this).height($(this)[0].scrollHeight + border - padding);
         });
       });
+    },
+
+    showPrices() {
+      $('html, body').animate({
+        scrollTop: $('.travel-tabs').offset().top - 20
+      })
+      this.showTab = 'price'
     },
 
 

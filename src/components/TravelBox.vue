@@ -7,7 +7,7 @@
               <div class="discount" v-if="travel.discount != null && travel.discount != ''">
                 خصم
                 <span class="number">{{ travel.discount }}</span>
-                %
+                جنية
               </div>
             </router-link>
           </flux-parallax>

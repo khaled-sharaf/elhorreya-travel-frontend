@@ -39,6 +39,7 @@ import './plugins/paginate'
 import './plugins/money'
 import './plugins/rangeSlider'
 import './plugins/social-sharing'
+import './plugins/vueSlideUpDown'
 import './plugins/mf-stack'
 
 

@@ -13,20 +13,34 @@
     <div class="travels-images-content main-content">
       <b-container>
 
-        <div class="travel-program" v-for="travelProgram in $menuList" :key="travelProgram.id">
 
+        <!--pilgrimage and umrah  -->
+        <div class="travel-program">
           <div class="side-title">
-            <h3 class="text" v-text="travelProgram.name"></h3>
+            <h3 class="text">  صور رحلات الحج والعمرة </h3>
           </div>
-
           <div class="travels-images main-content-boxs">
             <b-row>
-              <b-col lg="6" v-for="category in travelProgram.categories" :key="category.id">
+              <b-col lg="6" v-for="category in categories.filter(cat => cat.type === 1 || cat.type === 2)" :key="category.id">
                   <category-box :category="category" propertyType="fixed" :redirect="{name: 'images-category', params: {id: category.id}}"></category-box>
               </b-col>
             </b-row>
           </div>
+        </div>
 
+
+        <!--testimonials  -->
+        <div class="travel-program">
+          <div class="side-title">
+            <h3 class="text"> أراء العملاء </h3>
+          </div>
+          <div class="travels-images main-content-boxs">
+            <b-row>
+              <b-col lg="6">
+                  <category-box :category="categoryTestimonials" propertyType="relative" :redirect="{name: 'images-category', params: {id: categoryTestimonials.id}}"></category-box>
+              </b-col>
+            </b-row>
+          </div>
         </div>
 
       </b-container>
@@ -35,6 +49,7 @@
 </template>
 
 <script>
+
 import CategoryBox from '@/components/CategoryBox'
 export default {
   components: {
@@ -43,14 +58,27 @@ export default {
 
   data() {
     return {
-      imageHeader: ''
+      imageHeader: '',
+      categories: [],
+      categoryTestimonials: {
+        id: 'testimonials',
+        name: 'أراء العملاء',
+        image: require('@/assets/images/testimonials-bg.jpg')
+      }
     }
   },
+
 
   mounted() {
     this.imageHeader = ''
     setTimeout(() => {
       this.imageHeader = this.$settings.images_page_bg != null ? this.$domain + this.$settings.images_page_bg : ''
+    })
+
+    this.$menuList.forEach(program => {
+      program.categories.forEach(category => {
+        this.categories.push(category)
+      })
     })
   }
 }

@@ -36,7 +36,7 @@
                     <div class="title">
                       <h3 class="text" v-text="blog.title"></h3>
                     </div>
-                    <p class="paragraph" v-read-more="{limit: 400}" v-html="blog.content"></p>
+                    <div class="paragraph" v-read-more="{limit: 400}" v-html="blog.content"></div>
                     <!-- .replace(/(?:\r\n|\r|\n)/g, '<br>') -->
                     <div class="show-more">
                       <router-link :to="{name: 'blog', params: {id: blog.id, blog: blog}}">

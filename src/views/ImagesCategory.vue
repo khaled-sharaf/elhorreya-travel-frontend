@@ -4,7 +4,7 @@
       <div class="header-content between">
         <div class="header-right">
           <h1 class="header-title">
-            <span class="mark-underline" v-text="'صور ' + category.name"></span>
+            <span class="mark-underline" v-text="$route.params.id === 'testimonials' ? 'أراء العملاء' : 'صور ' + category.name "></span>
           </h1>
         </div>
       </div>
@@ -98,7 +98,7 @@
               v-for="image in images.data" :key="image.id"
             >
               <div class="image">
-                <img :src="$domain + image.name" :alt="'الحرية للسياحة قسم - ' + image.category.name">
+                <img :src="$domain + image.name" :alt="$route.params.id === 'testimonials' ? 'الحرية للسياحة - صور أراء العملاء' : 'الحرية للسياحة صور قسم - ' +  image.category.name">
               </div>
             </div>
           </carousel>
@@ -142,13 +142,21 @@ export default {
         return item.id == id
       })
 
-      if (typeof this.category === 'object' && Object.keys(this.category).length) {
-        this.imageHeader = ''
+      this.imageHeader = ''
+      if ((typeof this.category === 'object' && Object.keys(this.category).length)) {
         this.$nextTick(() => {
           setTimeout(() => {
             this.imageHeader = this.category.image != null ? this.$domain + this.category.image : ''
           })
           this.$route.meta.title = 'صور ' + this.category.name
+          this.getImages()
+        })
+      } else if (id === 'testimonials') {
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.imageHeader = require('@/assets/images/testimonials-bg.jpg')
+          })
+          this.$route.meta.title = 'أراء العملاء'
           this.getImages()
         })
       } else {
@@ -158,7 +166,8 @@ export default {
 
     getImages(url = this.urlGetImages) {
       this.showLoading = true
-      axios.get(url, {params: {category_id: this.category.id}}).then(response => {
+      const category_id = this.$route.params.id === 'testimonials' ? 999999999 : this.category.id
+      axios.get(url, {params: {category_id: category_id}}).then(response => {
         const data = response.data
         if (typeof data === 'object') {
           this.images = data.images

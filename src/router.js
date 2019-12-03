@@ -7,6 +7,9 @@ import Blogs from './views/Blogs.vue'
 import Categories from './views/Categories.vue'
 import ContactUs from './views/ContactUs.vue'
 import Flight from './views/Flight.vue'
+import FlightVisa from './views/FlightVisa.vue'
+import MarketingHotel from './views/MarketingHotel.vue'
+import MarketingHotels from './views/MarketingHotels.vue'
 import Hotel from './views/Hotel.vue'
 import Hotels from './views/Hotels.vue'
 import ImagesCategory from './views/ImagesCategory.vue'
@@ -61,19 +64,37 @@ const vueRouter = new Router({
       component: ContactUs
     },
     {
-      path: '/flight',
+      path: '/flight-offers',
       name: 'flight',
       meta: {
-        title: 'عروض الطيران'
+        title: 'عروض الطيران والتأشيرات'
       },
       component: Flight
     },
     {
+      path: '/flight-offers/:id',
+      name: 'flight-visa',
+      meta: {
+        title: 'عروض الطيران'
+      },
+      component: FlightVisa
+    },
+    {
+      path: '/marketing-hotel/:id',
+      name: 'marketing-hotel',
+      component: MarketingHotel
+    },
+    {
+      path: '/marketing-hotels',
+      name: 'marketing-hotels',
+      meta: {
+        title: 'التسويق الفندقى'
+      },
+      component: MarketingHotels
+    },
+    {
       path: '/hotel/:id',
       name: 'hotel',
-      meta: {
-        title: 'الرئيسية'
-      },
       component: Hotel
     },
     {

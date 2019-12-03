@@ -157,14 +157,137 @@
           <!-- ================================================================================ -->
 
 
-          <div class="rooms-table" v-if="hotel.rooms.length">
+
+          <div class="offers-tables" v-if="hotel.rooms.length">
             <div class="side-title">
-              <h3 class="text">الغرف المتاحة بالفندق</h3>
+              <h3 class="text">عروض الفندق المتاحة</h3>
             </div>
 
-            <div class="wrapper-table-rooms">
-              <b-table responsive bordered :items="hotel.rooms.filter(item => item.display === 1)" :fields="room_fields">
-              </b-table>
+            <div class="wrapper-tabel-offers">
+
+              <div class="offer-box" v-for="room in hotel.rooms.filter(r => r.display === 1)" :key="room.id">
+
+
+                <div class="t-row custom-hotel-rooms">
+
+                  <div class="t-col">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                      من
+                    </div>
+                    <div class="value" v-text="formatDate(room.date_from)"></div>
+                  </div>
+                  <!-- ====================================== -->
+
+
+                  <div class="t-col">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                      إلى
+                    </div>
+                    <div class="value" v-text="formatDate(room.date_to)"></div>
+                  </div>
+                  <!-- ====================================== -->
+
+
+                  <div class="t-col c-price-room">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="fas fa-money-bill-alt"></i>
+                      </span>
+                      سعر الغرفة
+                    </div>
+                    <div class="value">
+
+                      <div class="wrapper-price-col">
+
+                        <div class="week-row">
+                          <div class="week-col title">
+                            الفترة
+                          </div>
+                          <div class="week-col title">
+                            فردية
+                          </div>
+                          <div class="week-col title">
+                            زوجية
+                          </div>
+                          <div class="week-col title">
+                            ثلاثية
+                          </div>
+                          <div class="week-col title">
+                            رباعية
+                          </div>
+                        </div> <!-- ./week-row -->
+                        <!-- ====================== -->
+
+                        <div class="week-row">
+                          <div class="week-col title main-color-dark">
+                            Weekday
+                          </div>
+                          <div class="week-col">
+                            {{ room.single_price_wd }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.dbl_price_wd }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.triple_price_wd }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.quad_price_wd }}
+                          </div>
+                        </div> <!-- ./week-row -->
+                        <!-- ====================== -->
+
+                        <div class="week-row">
+                          <div class="week-col title main-color-dark">
+                            Weekend
+                          </div>
+                          <div class="week-col">
+                            {{ room.single_price_we }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.dbl_price_we }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.triple_price_we }}
+                          </div>
+                          <div class="week-col">
+                            {{ room.quad_price_we }}
+                          </div>
+                        </div> <!-- ./week-row -->
+                        <!-- ====================== -->
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- ====================================== -->
+
+
+                  <div class="t-col">
+                    <div class="label">
+                      <span class="icon">
+                        <i class="fas fa-utensils"></i>
+                      </span>
+                      الإقامة
+                    </div>
+                    <div class="value" v-text="room.options"></div>
+                  </div>
+                  <!-- ====================================== -->
+
+                </div><!-- row -->
+
+                <div class="desc-offer">
+                  <span class="bold" v-text="room.description"></span>
+                </div>
+
+              </div>
+
             </div>
           </div> <!-- rooms -->
 
@@ -285,28 +408,6 @@ export default {
       showLoadingOthers: true,
       hotel: {},
       others: [],
-      room_fields: [
-        {
-          key: 'info',
-          label: 'معلومات الغرفة',
-          sortable: true
-        },
-        {
-          key: 'options',
-          label: 'نوع الإقامة',
-          sortable: true
-        },
-        // {
-        //   key: 'price_night',
-        //   label: 'سعر الليلة',
-        //   sortable: true
-        // },
-        // {
-        //   key: 'offer_price',
-        //   label: 'العروض',
-        //   sortable: true
-        // },
-      ]
     }
   },
 
@@ -314,7 +415,7 @@ export default {
     async getHotel(id) {
       let hotel = {}
       this.showLoading = true
-      await axios.get('/hotel', {params: {id: id}}).then(response => {
+      await axios.get('/marketing-hotel', {params: {id: id}}).then(response => {
         const data = response.data
         if (typeof data === 'object') {
           this.hotel = data.hotel
@@ -386,21 +487,13 @@ export default {
       })
     },
 
-    handelNightsPeriod(nights) {
-      nights = parseInt(nights)
-      let prefix = ''
-      if (nights == 0) {
-        prefix = ''
-      } else if (nights == 1) {
-        prefix = 'ليلة'
-      } else if (nights == 2) {
-        prefix = 'ليلتين'
-      } else if (nights > 2 && nights < 11) {
-        prefix = nights + ' ليالى'
-      } else {
-        prefix = nights + ' ليلة'
-      }
-      return prefix
+    formatDate(date) {
+      date = new Date(date)
+      const monthNames = this.$store.state.months
+      const day = date.getDate();
+      const monthIndex = date.getMonth();
+      const year = date.getFullYear();
+      return day + ' ' + monthNames[monthIndex] + ' ' + year;
     },
 
   },

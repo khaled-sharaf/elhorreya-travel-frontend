@@ -25,21 +25,27 @@
     <script src="<%= BASE_URL %>js/jquery-1.12.1.min.js"></script>
 
     <script>
-      function initMapCompany() {
-          var my_map_modal = document.getElementById('map_company'),
-              elMap = document.getElementById('location_map_company'),
-              latitude = window.parseFloat(my_map_modal.getAttribute('data-lat')),
-              longitude = window.parseFloat(my_map_modal.getAttribute('data-long'));
+      function initMapCompanyLoop(eleMap) {
+        var elMap = eleMap.querySelector('.location_map_company'),
+          latitude = window.parseFloat(eleMap.getAttribute('data-lat')),
+          longitude = window.parseFloat(eleMap.getAttribute('data-long'));
 
-          var uluru = {lat: latitude, lng: longitude};
-          var map = new google.maps.Map(elMap, {
-              zoom: 16,
-              center: uluru
-          });
-          var marker = new google.maps.Marker({
-              position: uluru,
-              map: map
-          });
+        var uluru = {lat: latitude, lng: longitude};
+        var map = new google.maps.Map(elMap, {
+            zoom: 16,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+      }
+
+      function initMapCompany() {
+        var my_map_modal = document.querySelectorAll('.map-company');
+        for (var i = 0; i < my_map_modal.length; i++) {
+          initMapCompanyLoop(my_map_modal[i]);
+        }
       }
     </script>
   </body>

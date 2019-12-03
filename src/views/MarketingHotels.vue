@@ -4,7 +4,7 @@
       <div class="header-content between">
         <div class="header-right">
           <h1 class="header-title">
-            <span class="mark-underline">عروض الفنادق</span>
+            <span class="mark-underline">عروض التسويق الفندقى</span>
           </h1>
         </div>
       </div>
@@ -18,7 +18,7 @@
             <b-row>
               <b-col cols="7" md="4" lg="3">
                 <div class="title-filter">
-                  <h6 class="text">اختر الفندق المناسب لك</h6>
+                  <h6 class="text">اختر الفندق المناسب لشركتك</h6>
                 </div>
               </b-col>
 
@@ -108,7 +108,7 @@
                         <div class="hotel box-flat">
                           <router-link
                             class="wrapper-link"
-                            :to="{name: 'hotel', params: {id: hotel.id, hotel: hotel}}"
+                            :to="{name: 'marketing-hotel', params: {id: hotel.id, hotel: hotel}}"
                             :style="{'background-image': `url('${$domain + hotel.image}')`}"
                           >
                             <div class="discount">
@@ -183,7 +183,7 @@
 import Rating from '@/components/Rating'
 
 export default {
-  name: 'hotels',
+  name: 'marketing-hotels',
   components: {
     Rating
   },
@@ -217,7 +217,7 @@ export default {
 
     getHotels(filters = this.filters) {
       this.showLoading = true
-      axios.get('/hotels', {params: filters}).then(response => {
+      axios.get('/marketing-hotels', {params: filters}).then(response => {
         const data = response.data
         if (typeof data === 'object') {
           this.hotelsPaginateData = data.hotels
@@ -280,12 +280,10 @@ export default {
       }
       this.imageHeader = ''
       setTimeout(() => {
-        this.imageHeader = this.$settings.hotels_page_bg != null ? this.$domain + this.$settings.hotels_page_bg : ''
+        this.imageHeader = this.$settings.marketing_hotels_page_bg != null ? this.$domain + this.$settings.marketing_hotels_page_bg : ''
       })
     })
   }
-
-
 
 }
 </script>

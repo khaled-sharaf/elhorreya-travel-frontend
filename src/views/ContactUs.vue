@@ -13,7 +13,6 @@
     <div class="contact-us-content main-content">
       <b-container>
 
-
         <div class="contact">
           <div class="section-title-center">
             <h2 class="text">
@@ -96,16 +95,134 @@
         <div class="map" v-if="$settings.latitude != null && $settings.longitude != null">
           <div class="section-title-center">
             <h2 class="text">
-              موقعنا على الخريطة
+              خريطة الفرع الرئيسى
             </h2>
           </div>
 
           <div class="content">
             <div class="map-company" id="map_company" :data-lat="$settings.latitude" :data-long="$settings.longitude">
-                <div id="location_map_company"></div>
+                <div class="location_map_company"></div>
             </div>
           </div>
         </div>
+        <!-- ============================================================================ -->
+
+
+
+        <div class="section-title-center">
+          <h2 class="text">
+            فروعنا
+          </h2>
+        </div>
+
+        <div class="branches">
+
+          <div class="wrapper-loading" v-if="showLoadingBranches">
+          <div class="loading-view">
+            <div class="icon">
+              <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+            <div class="text">من فضلك انتظر قليلا...</div>
+          </div>
+        </div>
+
+
+        <div class="branches-wrapper" v-else>
+
+          <div class="branch" v-for="branch in branches" :key="branch.id">
+
+
+            <div class="branch-name" :class="{active: branchActive == branch.id}">
+              <h3 class="text" @click="showBranch(branch.id)">
+                {{ branch.branch_name }}
+                <span class="icon">
+                  <i class="fas fa-angle-left"></i>
+                </span>
+              </h3>
+              <span class="span-border-effect-right"></span>
+            </div>
+
+            <vue-slide :active="branchActive == branch.id" :duration="600" :use-hidden="false">
+
+              <div class="branch-content">
+
+                <div class="contact">
+
+                  <div class="content">
+                    <div class="row-contact">
+                      <div class="side" v-if="branch.address != null && branch.address != ''">
+                        <span class="icon">
+                          <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                        <span class="text" v-text="branch.address"></span>
+                      </div> <!-- ./side -->
+
+                    </div> <!-- ./row-contact -->
+
+                    <div class="row-contact">
+                      <div class="side" v-if="branch.phone_1 != null">
+                        <span class="icon">
+                          <i class="fas fa-phone"></i>
+                        </span>
+                        <span class="text" v-text="branch.phone_1"></span>
+                      </div> <!-- ./side -->
+
+                      <div class="side" v-if="branch.phone_2 != null">
+                        <span class="icon">
+                          <i class="fas fa-phone"></i>
+                        </span>
+                        <span class="text" v-text="branch.phone_2"></span>
+                      </div> <!-- ./side -->
+                    </div> <!-- ./row-contact -->
+
+                    <div class="row-contact">
+                      <div class="side" v-if="branch.phone_3 != null">
+                        <span class="icon">
+                          <i class="fas fa-phone"></i>
+                        </span>
+                        <span class="text" v-text="branch.phone_3"></span>
+                      </div> <!-- ./side -->
+
+                      <div class="side" v-if="branch.phone_4 != null">
+                        <span class="icon">
+                          <i class="fas fa-phone"></i>
+                        </span>
+                        <span class="text" v-text="branch.phone_4"></span>
+                      </div> <!-- ./side -->
+                    </div> <!-- ./row-contact -->
+
+                    <div class="row-contact">
+                      <div class="side" v-if="branch.email != null">
+                        <span class="icon">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="text" v-text="branch.email"></span>
+                      </div> <!-- ./side -->
+                    </div> <!-- ./row-contact -->
+
+                  </div>
+                </div>
+
+
+                <div class="map" v-if="branch.latitude != null && branch.longitude != null">
+                  <div class="content">
+                    <div class="map-company" id="map_company" :data-lat="branch.latitude" :data-long="branch.longitude">
+                        <div class="location_map_company"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </vue-slide>
+
+          </div>
+
+        </div>
+
+        </div>
+
+
         <!-- ============================================================================ -->
 
 
@@ -215,7 +332,11 @@ export default {
         phone: '',
         message: ''
       }),
-      messageDoneSendMail: ''
+      messageDoneSendMail: '',
+
+      showLoadingBranches: true,
+      branches: [],
+      branchActive: ''
     }
   },
 
@@ -262,17 +383,43 @@ export default {
           $(this).height($(this)[0].scrollHeight + border - padding);
         });
       });
+    },
+
+
+
+    getBranches() {
+      this.showLoadingBranches = true
+      axios.get('/branches').then(response => {
+        const data = response.data
+        if (typeof data === 'object') {
+          this.branches = data.branches
+          this.showLoadingBranches = false
+          this.showMap()
+          this.showBranch(this.branches[0].id)
+        } else {
+          setTimeout(() => this.getBranches(), 500)
+        }
+      }).catch(error => {
+        setTimeout(() => this.getBranches(), 500)
+      })
+    },
+
+
+    showBranch(id) {
+      if (this.branchActive == id) {
+        this.branchActive = ''
+      } else {
+        this.branchActive = id
+      }
     }
   },
 
   mounted() {
-    if (this.$settings.latitude != null && this.$settings.longitude != null) {
-      this.showMap()
-    }
     this.$nextTick(() => {
       this.imageHeader = ''
       setTimeout(() => {
         this.imageHeader = this.$settings.contact_us_page_bg != null ? this.$domain + this.$settings.contact_us_page_bg : ''
+        this.getBranches()
       })
       this.autoResizeTextArea()
     })

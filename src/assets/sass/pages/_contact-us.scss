@@ -42,7 +42,7 @@
 
 	.map {
 		.map-company {
-			#location_map_company {
+			.location_map_company {
 				border: 1px solid #CCC;
 				background-color: #FFF;
 				@extend .shadow5;
@@ -65,6 +65,78 @@
 	.contact-form {
 		.message-success {
 			margin-top: 20px;
+		}
+	}
+}
+
+
+.branches-wrapper {
+	margin-bottom: 60px;
+	.branch {
+		.branch-name {
+			position: relative;
+			display: inline-block;
+			.text {
+				display: inline-block;
+				color: $mainColorDark;
+				font-weight: bold;
+				font-size: 20px;
+				padding: 10px 0 10px 15px;
+				cursor: pointer;
+        border-bottom: 2px solid transparent;
+				@include trans('0.2s');
+				.icon {
+					display: inline-block;
+					position: relative;
+					top: 3px;
+					right: 10px;
+					font-size: 22px;
+					@include trans('0.25s')
+				}
+				&+.span-border-effect-right {
+            position: absolute;
+            bottom: 0;
+						right: 0;
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: $mainColor;
+            @include trans('0.25s');
+        }
+			}
+			&.active {
+				.text {
+					color: $mainColor;
+					.icon {
+						transform: rotate(-90deg);
+					}
+					&+.span-border-effect-right {
+						width: 100%;
+					}
+				}
+			}
+		}
+
+
+		.branch-content {
+			background-color: #F5F5F5;
+			@extend .shadow4;
+			border-radius: 4px;
+			padding: 30px;
+			margin: 30px 0;
+			@include maxMobile {
+				padding: {
+					left: 15px;
+					right: 15px;
+				};
+			}
+
+			.content {
+				margin-bottom: 0 !important;
+			}
+			.contact {
+				margin-bottom: 40px;
+			}
 		}
 	}
 }

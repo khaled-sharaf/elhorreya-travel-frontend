@@ -6,6 +6,85 @@
 
 <template>
   <div id="c_footer">
+    <!--  wrapper-subscribe-mailing-list -->
+    <div class="wrapper-subscribe-mailing-list">
+      <b-container>
+        <b-row>
+          <b-col lg="6">
+            <div class="box subscribe-form">
+              <div class="title">
+                <h4 class="text">اشترك فى قائمتنا البريدية ليصلك كل جديد</h4>
+              </div>
+              <div class="content">
+                <b-form @submit.prevent="subscribe()">
+                  <b-form-group class="required">
+                    <b-input class="input-email" v-model="formSubscribe.email" placeholder="ادخل بريدك الإليكترونى"></b-input>
+                    <div class="message">
+                      <div class="error" v-if="formSubscribe.errors.has('email')">
+                        {{ formSubscribe.errors.get('email') }}
+                      </div>
+                    </div>
+                  </b-form-group>
+
+                  <b-form-group>
+                    <b-input class="input-phone" v-model="formSubscribe.phone" placeholder="رقم الموبايل"></b-input>
+                    <div class="message">
+                      <div class="error" v-if="formSubscribe.errors.has('phone')">
+                        {{ formSubscribe.errors.get('phone') }}
+                      </div>
+                    </div>
+                  </b-form-group>
+                  <b-button :disabled="formSubscribe.busy" variant="warning" type="submit">
+                    <span v-if="!formSubscribe.busy">
+                      إرسال
+                    </span>
+                    <i v-else class="fas fa-circle-notch fa-spin icon-loading"></i>
+                  </b-button>
+                </b-form>
+                <div class="message-alert">
+                  <b-alert
+                    class="message-success"
+                    :show="messageDoneSubscribe != ''"
+                    dismissible
+                    @dismissed="messageDoneSubscribe = ''"
+                    variant="success">
+                    {{ messageDoneSubscribe }}
+                  </b-alert>
+                </div>
+              </div>
+            </div>
+          </b-col>
+
+          <b-col lg="6">
+            <div class="box contact-us">
+              <div class="title">
+                <h4 class="text">أيضا تواصل معنا عبر وسائل التواصل</h4>
+              </div>
+              <div class="content">
+                <div class="icons">
+                  <a class="waves-effect" :href="$settings.whatsapp_link" target="_blank" v-if="$settings.whatsapp_link != null && $settings.whatsapp_link != ''">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                  <a class="waves-effect" :href="$settings.instagram_link" target="_blank" v-if="$settings.instagram_link != null && $settings.instagram_link != ''">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a class="waves-effect" :href="$settings.twitter_link" target="_blank" v-if="$settings.twitter_link != null && $settings.twitter_link != ''">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a class="waves-effect" :href="$settings.facebook_link" target="_blank" v-if="$settings.facebook_link != null && $settings.facebook_link != ''">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </b-col>
+
+        </b-row>
+      </b-container>
+    </div>
+    <!-- ./wrapper-subscribe-mailing-list -->
+    <!-- ==================================================================================== -->
+    
     <div class="wrapper-footer">
       <b-container>
         <b-row>
@@ -169,13 +248,46 @@
 
 <script>
 export default {
+
+  data() {
+    return {
+      formSubscribe: new Form({
+        email: '',
+        phone: ''
+      }),
+      messageDoneSubscribe: ''
+    }
+  },
+
+   watch: {
+    'formSubscribe.email'(newVal) {
+      if (newVal.trim() === '') {
+        this.formSubscribe.errors.clear('email')
+      }
+    }
+  },
+
   methods: {
     goToFormContactUs() {
       this.$router.push({name: 'contact-us'})
       this.$nextTick(() => {
         $('html, body').scrollTop($('.contact-form').offset().top - 50)
       })
-    }
+    },
+
+    subscribe() {
+      this.formSubscribe.post('/mailing_list/subscribe').then(response => {
+        const data = response.data
+        if (response.status === 200) {
+          if (typeof data === 'object') {
+            if (data.status) {
+              this.messageDoneSubscribe = data.message
+              this.formSubscribe.reset()
+            }
+          }
+        }
+      })
+    },
   }
 }
 </script>

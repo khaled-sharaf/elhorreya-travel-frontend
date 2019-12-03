@@ -33,7 +33,7 @@ export default {
 
   data() {
     return {
-      imageHeader: this.$domain + this.category.image
+      imageHeader: this.category.id === 'testimonials' ? this.category.image : this.$domain + this.category.image
     }
   }
 }

@@ -48,6 +48,8 @@
 
           <!-- ==================================================================================== -->
 
+
+          <!-- wrapper-travels-offer -->
           <div class="wrapper-section wrapper-travels-offer">
             <b-container>
               <div class="section-title-center">
@@ -63,7 +65,7 @@
                     v-for="(tab, idx) in allDataTravelsOffer"
                     :key="tab.id"
                     class="tab"
-                    :class="{active: currentTravelsOffer === (idx), disbaled: !showCarouselTravelsLoading}"
+                    :class="{active: currentTravelsOffer === (idx), disbaled: showCarouselTravelsLoading}"
                     @click="toggleTabTravels(idx)"
                     v-text="tab.name"
                   ></li>
@@ -72,12 +74,12 @@
               </div>
 
               <div class="wrapper-travels">
-                <div class="loading" v-show="!showCarouselTravelsLoading">
+                <div class="loading" v-show="showCarouselTravelsLoading">
                   <span class="icon">
                     <i class="fas fa-circle-notch fa-spin"></i>
                   </span>
                 </div>
-                <div v-show="showCarouselTravelsLoading">
+                <div v-show="!showCarouselTravelsLoading">
                     <!-- :center="true" -->
                   <carousel
                     v-if="showCarouselTravels"
@@ -161,7 +163,8 @@
           <!-- ==================================================================================== -->
 
 
-          <div class="wrapper-section wrapper-fly-offer">
+          <!-- wrapper-fly-offer -->
+          <!-- <div class="wrapper-section wrapper-fly-offer">
             <b-container>
               <div class="section-title-center">
                 <h2 class="text">
@@ -248,10 +251,60 @@
                 </div>
               </div>
             </b-container>
-          </div>
+          </div> -->
           <!-- ./wrapper-fly-offer -->
           <!-- ==================================================================================== -->
 
+
+          <!-- wrapper-why-we -->
+          <div class="wrapper-section wrapper-testimonials">
+            <b-container>
+              <div class="section-title-center">
+                <h2 class="text">
+                  <router-link :to="{name: 'images-category', params: {id: 'testimonials'}}">أراء العملاء</router-link>
+                </h2>
+              </div>
+
+              <div class="wrapper-carousel-testimonials">
+                <div class="loading" v-show="showCarouselTestimonialsLoading">
+                  <span class="icon">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                  </span>
+                </div>
+                <div v-show="!showCarouselTestimonialsLoading">
+                    <!-- :center="true" -->
+                  <carousel
+                    v-if="showCarouselTestimonials"
+                    class="my-carousel"
+                    ref="carouselTestimonials"
+                    :margin="15"
+                    :autoplay="true"
+                    :autoplayHoverPause="true"
+                    :autoplaySpeed="500"
+                    :autoplayTimeout="3500"
+                    :nav="false"
+                    :items="itemsCarouselTestimonials"
+                    :dots="true"
+                    :smartSpeed="300"
+                  >
+                    <div class="testimonials-box box-flat" v-for="testimonial in testimonialsImages" :key="testimonial.id">
+                      <a
+                        class="wrapper-link"
+                        :href="$domain + testimonial.name"
+                        target="_blank"
+                        :style="{'background-image': `url('${$domain + testimonial.name}')`}"
+                      >
+                      </a>
+                    </div>
+                  </carousel>
+                </div>
+              </div>
+            </b-container>
+          </div>
+          <!-- ./wrapper-why-we -->
+          <!-- ==================================================================================== -->
+
+          <!-- wrapper-why-we -->
           <div class="wrapper-section wrapper-why-we">
             <b-container>
               <div class="section-title-center">
@@ -320,83 +373,6 @@
 
 
 
-          <div class="wrapper-subscribe-mailing-list">
-            <b-container>
-              <b-row>
-                <b-col lg="6">
-                  <div class="box subscribe-form">
-                    <div class="title">
-                      <h4 class="text">اشترك فى قائمتنا البريدية ليصلك كل جديد</h4>
-                    </div>
-                    <div class="content">
-                      <b-form @submit.prevent="subscribe()">
-                        <b-form-group class="required">
-                          <b-input class="input-email" v-model="formSubscribe.email" placeholder="ادخل بريدك الإليكترونى"></b-input>
-                          <div class="message">
-                            <div class="error" v-if="formSubscribe.errors.has('email')">
-                              {{ formSubscribe.errors.get('email') }}
-                            </div>
-                          </div>
-                        </b-form-group>
-
-                        <b-form-group>
-                          <b-input class="input-phone" v-model="formSubscribe.phone" placeholder="رقم الموبايل"></b-input>
-                          <div class="message">
-                            <div class="error" v-if="formSubscribe.errors.has('phone')">
-                              {{ formSubscribe.errors.get('phone') }}
-                            </div>
-                          </div>
-                        </b-form-group>
-                        <b-button :disabled="formSubscribe.busy" variant="warning" type="submit">
-                          <span v-if="!formSubscribe.busy">
-                            إرسال
-                          </span>
-                          <i v-else class="fas fa-circle-notch fa-spin icon-loading"></i>
-                        </b-button>
-                      </b-form>
-                      <div class="message-alert">
-                        <b-alert
-                          class="message-success"
-                          :show="messageDoneSubscribe != ''"
-                          dismissible
-                          @dismissed="messageDoneSubscribe = ''"
-                          variant="success">
-                          {{ messageDoneSubscribe }}
-                        </b-alert>
-                      </div>
-                    </div>
-                  </div>
-                </b-col>
-
-                <b-col lg="6">
-                  <div class="box contact-us">
-                    <div class="title">
-                      <h4 class="text">أيضا تواصل معنا عبر وسائل التواصل</h4>
-                    </div>
-                    <div class="content">
-                      <div class="icons">
-                        <a class="waves-effect" :href="$settings.whatsapp_link" target="_blank" v-if="$settings.whatsapp_link != null && $settings.whatsapp_link != ''">
-                          <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a class="waves-effect" :href="$settings.instagram_link" target="_blank" v-if="$settings.instagram_link != null && $settings.instagram_link != ''">
-                          <i class="fab fa-instagram"></i>
-                        </a>
-                        <a class="waves-effect" :href="$settings.twitter_link" target="_blank" v-if="$settings.twitter_link != null && $settings.twitter_link != ''">
-                          <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="waves-effect" :href="$settings.facebook_link" target="_blank" v-if="$settings.facebook_link != null && $settings.facebook_link != ''">
-                          <i class="fab fa-facebook-f"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </b-col>
-
-              </b-row>
-            </b-container>
-          </div>
-          <!-- ./wrapper-fly-offer -->
-          <!-- ==================================================================================== -->
 
 
       </div>
@@ -430,7 +406,13 @@ export default {
       navCarouselTravels: true,
       dotsCarouselTravels: true,
       showCarouselTravels: true,
-      showCarouselTravelsLoading: false,
+      showCarouselTravelsLoading: true,
+
+      itemsCarouselTestimonials: 4,
+      showCarouselTestimonials: true,
+      showCarouselTestimonialsLoading: true,
+      testimonialsImages: [],
+
 
       currentTravelsOffer: -1,
       currentDataTravelsOffer: [],
@@ -441,11 +423,6 @@ export default {
       allDataTravelsExternal: [],
       showTravelsExternalLoading: false,
 
-      formSubscribe: new Form({
-        email: '',
-        phone: ''
-      }),
-      messageDoneSubscribe: ''
     }
   },
 
@@ -513,6 +490,7 @@ export default {
         }
     },
 
+
     toggleTabTravels (currentTab) {
       if (this.currentTravelsOffer === currentTab) return
       if (!this.$refs.carouselTravels) return
@@ -536,8 +514,8 @@ export default {
         const data = response.data
         if (typeof data === 'object') {
           this.allDataTravelsOffer = data.tabs
-          this.showCarouselTravelsLoading = true
           setTimeout(() => this.toggleTabTravels(1))
+          this.showCarouselTravelsLoading = false
         } else {
           setTimeout(() => this.getTravelsOffer(), 500)
         }
@@ -569,17 +547,41 @@ export default {
     },
     // ======================================================================================
 
-    subscribe() {
-      this.formSubscribe.post('/mailing_list/subscribe').then(response => {
-        const data = response.data
-        if (response.status === 200) {
-          if (typeof data === 'object') {
-            if (data.status) {
-              this.messageDoneSubscribe = data.message
-              this.formSubscribe.reset()
-            }
-          }
+    // ======================================================================================
+
+    responsiveCarouselTestimonials() {
+      const mdMax = window.matchMedia("(max-width: 991.98px)")
+      const smMax = window.matchMedia("(max-width: 767.98px)")
+      const mobMax = window.matchMedia("(max-width: 575.98px)")
+
+       if (mobMax.matches) {
+          this.itemsCarouselTestimonials = 1
+        } else if (smMax.matches) {
+          this.itemsCarouselTestimonials = 2
+        } else if (mdMax.matches) {
+          this.itemsCarouselTestimonials = 3
+        } else {
+          this.itemsCarouselTestimonials = 4
         }
+    },
+    // ======================================================================================
+
+    getTestimonials() {
+      axios.get('/images/testimonials').then(response => {
+        const data = response.data
+        if (typeof data === 'object') {
+          this.testimonialsImages = data.images
+          this.showCarouselTestimonials = false
+          setTimeout(() => {
+            this.responsiveCarouselTestimonials()
+            setTimeout(() => this.showCarouselTestimonials = true)
+          })
+          this.showCarouselTestimonialsLoading = false
+        } else {
+          setTimeout(() => this.getTestimonials(), 500)
+        }
+      }).catch(error => {
+        setTimeout(() => this.getTestimonials(), 500)
       })
     },
     // ======================================================================================
@@ -594,7 +596,11 @@ export default {
 
       // get travels offer from db
       this.getTravelsOffer()
-      this.getTravelsExternal()
+
+      // this.getTravelsExternal()
+
+
+      this.getTestimonials()
     })
   },
 
@@ -608,11 +614,6 @@ export default {
     //     })
     //   }
     // },
-    'formSubscribe.email'(newVal) {
-      if (newVal.trim() === '') {
-        this.formSubscribe.errors.clear('email')
-      }
-    }
   },
 
   computed: {

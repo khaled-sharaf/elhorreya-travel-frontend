@@ -214,8 +214,7 @@
                 <div class="offer-box" v-for="(offer, idx) in travel.offers.filter(t => t.display === 1)" :key="offer.id">
                   <div class="offer-title">
                     <h4 class="text">
-                      العرض
-                      {{ counterText[idx] }}
+                      {{ offer.name_offer }}
                     </h4>
                   </div>
 
@@ -264,28 +263,44 @@
                         <span class="icon">
                           <i class="far fa-clock"></i>
                         </span>
-                        أيام الفنادق
+                        فندق مكة
                       </div>
                       <div class="value">
                         <div class="hotel-days-view">
-                          <div>
-                            فندق مكة
-                            <div class="days">
-                              {{ handelDaysPeriod(offer.hotel_days) }}
-                            </div>
+                          <div class="hotel-name">
+                            <router-link :to="{name: 'hotel', params: {hotel: travel.hotel, id: travel.hotel_id}}" v-text="travel.hotel.name"></router-link>
                           </div>
-                          <div>
-                            فندق المدينة
-                            <div class="days">
-                              {{ handelDaysPeriod(offer.hotel_2_days) }}
-                            </div>
+                          <div class="days">
+                            {{ handelDaysPeriod(offer.hotel_days) }}
                           </div>
+                          <div class="stay-type" v-text="offer.stay_type"></div>
                         </div>
                       </div>
                     </div>
                     <!-- ====================================== -->
 
-                    <div class="t-col">
+                    <div class="t-col hotel-days" v-if="travel.type === 'umrah' || travel.type === 'pilgrimage'">
+                      <div class="label">
+                        <span class="icon">
+                          <i class="far fa-clock"></i>
+                        </span>
+                        فندق المدينة
+                      </div>
+                      <div class="value">
+                        <div class="hotel-days-view">
+                          <div class="hotel-name">
+                            <router-link :to="{name: 'hotel', params: {hotel: travel.hotel_2, id: travel.hotel_2_id}}" v-text="travel.hotel_2.name"></router-link>
+                          </div>
+                          <div class="days">
+                            {{ handelDaysPeriod(offer.hotel_2_days) }}
+                          </div>
+                          <div class="stay-type" v-text="offer.stay_type_2"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ====================================== -->
+
+                    <div class="t-col" v-if="travel.type !== 'umrah' && travel.type !== 'pilgrimage'">
                       <div class="label">
                         <span class="icon">
                           <i class="fas fa-utensils"></i>

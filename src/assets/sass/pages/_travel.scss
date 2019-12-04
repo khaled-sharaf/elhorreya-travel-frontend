@@ -199,11 +199,8 @@
 					flex-basis: calc(100% / 8);
 					text-align: center;
 					border-left: 1px solid #f6c78a;
-					&.go-and-back {
-						min-width: 130px;
-					}
 					&.hotel-days {
-						min-width: 150px;
+						min-width: 170px;
 					}
 					@include maxLarge {
 						flex-basis: calc(100% / 4);
@@ -235,8 +232,8 @@
 					.value {
 						color: $mainColorDark;
 						font-size: 13px;
-						height: 60px;
-						max-height: 60px;
+						height: 80px;
+						max-height: 80px;
 						display: flex;
 						align-items: center;
 						justify-content: center;
@@ -259,15 +256,13 @@
 							}
 						}
 						.hotel-days-view {
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
 							font-size: 12px;
-							> div {
-								margin: 0 5px;
-							}
 							.days {
 								font-weight: bold;
+							}
+							a {
+								color: $mainColorDark;
+								text-decoration: underline;
 							}
 						}
 

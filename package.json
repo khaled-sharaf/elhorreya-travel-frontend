@@ -14,7 +14,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
     "core-js": "^2.6.5",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery.nicescroll": "^3.7.6",
     "overlayscrollbars": "^1.10.0",
     "overlayscrollbars-vue": "^0.2.0",
